@@ -53,6 +53,11 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		bf.playAnim('firstDeath');
 
+                #if android
+                addVirtualPad(NONE, A_B);
+                addPadCamera();
+                #end
+
 		if(FlxG.save.data.instRespawn)
 		{
 			endBullshit();
