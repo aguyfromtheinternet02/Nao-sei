@@ -246,9 +246,9 @@ class StoryMenuState extends MusicBeatState
 				else
 					leftArrow.animation.play('idle');
 
-				if (FlxG.keys.justPressed.RIGHT_P)
+				if (FlxG.keys.justPressed.RIGHT)
 					changeDifficulty(1);
-				if (FlxG.keys.justPressed.LEFT_P)
+				if (FlxG.keys.justPressed.LEFT)
 					changeDifficulty(-1);
 			}
 
