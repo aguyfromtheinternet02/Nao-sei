@@ -231,6 +231,10 @@ class OptionsMenu extends MusicBeatState
 								}
 							curSelected = 0;
 							updateCheckboxes();
+
+							#if android
+							addVirtualPad(UP_DOWN, A_B);
+							#end
 						}
                     
 					
