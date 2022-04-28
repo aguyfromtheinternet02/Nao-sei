@@ -115,7 +115,7 @@ class Character extends FlxSprite
 			//QT mod characters:
 			case 'qt':
 				// QT = Cutie
-				tex = Paths.getSparrowAtlas('qt');
+				tex = Paths.getSparrowAtlas('characters/qt');
 				frames = tex;
 				animation.addByPrefix('idle', 'Final_Idle', 18, false); //How long until I get called out for using a weird framerate for the animation?
 				animation.addByPrefix('singUP', 'Final_Up', 14, false);
@@ -137,7 +137,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 			case 'qt_annoyed':
 				//For second song
-				tex = Paths.getSparrowAtlas('qt_annoyed');
+				tex = Paths.getSparrowAtlas('characters/qt_annoyed');
 				frames = tex;
 				animation.addByPrefix('idle', 'Final_Idle', 18, false);
 				animation.addByPrefix('singUP', 'Final_Up', 14, false);
@@ -169,7 +169,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 			case 'robot':
 				//robot = kb = killerbyte
-				tex = Paths.getSparrowAtlas('robot');
+				tex = Paths.getSparrowAtlas('characters/robot');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB_DanceRight", 26, false);
@@ -192,7 +192,7 @@ class Character extends FlxSprite
 			//Bluescreen section characters:
 			case 'gf_404':
 				// GIRLFRIEND CODE
-				tex = Paths.getSparrowAtlas('GF_assets_404');
+				tex = Paths.getSparrowAtlas('characters/GF_assets_404');
 				frames = tex;
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
 				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
@@ -222,7 +222,7 @@ class Character extends FlxSprite
 
 				playAnim('danceRight');
 			case 'bf_404':
-				var tex = Paths.getSparrowAtlas('BOYFRIEND_404');
+				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND_404');
 				frames = tex;
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
@@ -263,7 +263,7 @@ class Character extends FlxSprite
 				flipX = true;
 				
 			case 'robot_404':
-				tex = Paths.getSparrowAtlas('robot_404');
+				tex = Paths.getSparrowAtlas('characters/robot_404');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB404_DanceRight", 25, false);
@@ -281,7 +281,7 @@ class Character extends FlxSprite
 				addOffset("singUP", 173, 52);
 
 			case 'robot_404-TERMINATION':
-				tex = Paths.getSparrowAtlas('robot_404-angry');
+				tex = Paths.getSparrowAtlas('characters/robot_404-angry');
 				frames = tex;
 
 				animation.addByPrefix('idle', "KB404ALT_idleBabyRage", 27, false);
@@ -298,7 +298,7 @@ class Character extends FlxSprite
 
 			case 'qt-kb':
 
-				tex = Paths.getSparrowAtlas('bonus/qt-kbV2');
+				tex = Paths.getSparrowAtlas('characters//qt-kbV2');
 				frames = tex;
 
 
@@ -348,7 +348,7 @@ class Character extends FlxSprite
 
 			case 'qt-meme':
 				// QT = Cutie
-				tex = Paths.getSparrowAtlas('qt_meme');
+				tex = Paths.getSparrowAtlas('characters/qt_meme');
 				frames = tex;
 				animation.addByPrefix('idle', 'godIdle', 24, false);
 				animation.addByPrefix('singUP', 'godUp', 24, false);
@@ -370,7 +370,7 @@ class Character extends FlxSprite
 
 			case 'robot_classic':
 
-				tex = Paths.getSparrowAtlas('classic/robot_classic');
+				tex = Paths.getSparrowAtlas('characters/robot_classic');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB_DanceRight", 26, false);
@@ -389,7 +389,7 @@ class Character extends FlxSprite
 
 			case 'robot_classic_404':
 
-				tex = Paths.getSparrowAtlas('classic/robot_classic_404');
+				tex = Paths.getSparrowAtlas('characters/robot_classic_404');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB404_DanceRight", 25, false);
@@ -407,7 +407,7 @@ class Character extends FlxSprite
 				addOffset("singUP", 173, 52);
 
 			case 'qt_classic':
-				tex = Paths.getSparrowAtlas('classic/qt_classic');
+				tex = Paths.getSparrowAtlas('characters/qt_classic');
 				frames = tex;
 				animation.addByPrefix('idle', 'QT_sprite_test-idle', 48, false);
 				animation.addByPrefix('singUP', 'QT_sprite_test-up', 48, false);
