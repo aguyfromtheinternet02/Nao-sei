@@ -27,7 +27,8 @@ class MenuCharacter extends FlxSprite
 		'pico' => new PosSettings(0, 0, 1.0, true),
 		'mom' => new PosSettings(-30, 140, 0.85),
 		'parents-christmas' => new PosSettings(100, 130, 1.8),
-		'senpai' => new PosSettings(-40, -45, 1.4)
+		'senpai' => new PosSettings(-40, -45, 1.4),
+		'qt' => new PosSettings(-5, 25, 1.2)
 	];
 
 	private var flipped:Bool = false;
@@ -50,6 +51,7 @@ class MenuCharacter extends FlxSprite
 		animation.addByPrefix('mom', "Mom Idle BLACK LINES", 24);
 		animation.addByPrefix('parents-christmas', "Parent Christmas Idle", 24);
 		animation.addByPrefix('senpai', "SENPAI idle Black Lines", 24);
+		animation.addByPrefix('qt', "transparent_qt_sprite_.psd", 18);
 
 		setGraphicSize(Std.int(width * scale));
 		updateHitbox();
