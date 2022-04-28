@@ -25,6 +25,7 @@ class OptionsMenu extends MusicBeatState
 	var options:Array<OptionCatagory> = [
 		new OptionCatagory("Preferences", [
                         new AndroidControls(),
+                        new QTOptimiseOption(),
 			new DownscrollOption(),
 			new MiddlescrollOption(),
 			new HitsoundsOption(),
