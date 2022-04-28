@@ -412,8 +412,9 @@ class QTOptimiseOption extends Option
 		super();
 	}
 
-	public override function press():Bool
+	public override function press(changeData:Bool):Bool
 	{
+		if(changeData)
 		Main.qtOptimisation = !Main.qtOptimisation;
 		FlxG.save.data.qtOptimisation = Main.qtOptimisation;
 		display = updateDisplay();
