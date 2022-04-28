@@ -323,7 +323,7 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
-			case 'carefree':
+			/*case 'carefree':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('carefree/carefreeDialogue'));
 			case 'careless':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('careless/carelessDialogue'));
@@ -332,7 +332,7 @@ class PlayState extends MusicBeatState
 			case 'censory-overload':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('censory-overload/censory-overloadDialogue'));
 			case 'terminate':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('terminate/terminateDialogue'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('terminate/terminateDialogue'));*/
 		}
 
 		#if desktop
@@ -1601,10 +1601,10 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
-				case 'carefree' | 'careless' | 'terminate':
+				/*case 'carefree' | 'careless' | 'terminate':
 					schoolIntro(doof);
 				case 'censory-overload':
-					schoolIntro(doof);
+					schoolIntro(doof);*/
 				default:
 					startCountdown();
 			}
