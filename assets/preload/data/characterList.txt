@@ -16,3 +16,7 @@ bf-pixel
 senpai
 senpai-angry
 spirit
+qt
+qt_annoyed
+robot
+qt-kb
