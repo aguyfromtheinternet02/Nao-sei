@@ -226,7 +226,7 @@ class DialogueBox extends FlxSpriteGroup
 				portraitRightALT.flipX = true;
 				portraitRightALT.visible = false;
 			}
-			else if{
+			else if
                                 (PlayState.SONG.song.toLowerCase()=='cessation'){ //Defining portraits for Cessation (ending)
 				portraitLeft = new FlxSprite(-20, 50);
 				portraitLeft.frames = Paths.getSparrowAtlas('ui/roboFUTUREPortait');
