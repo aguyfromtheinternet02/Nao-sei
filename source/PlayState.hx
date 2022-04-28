@@ -3489,6 +3489,7 @@ class PlayState extends MusicBeatState
 
 				LoadingState.loadAndSwitchState(new PlayState());
 				}
+				}
 						else if (SONG.song.toLowerCase() == 'careless')
 						{
 							camZooming = false;
