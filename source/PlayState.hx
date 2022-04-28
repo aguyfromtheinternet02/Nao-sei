@@ -4539,6 +4539,7 @@ class PlayState extends MusicBeatState
 	var cameraBeatSpeed:Int = 4;
 	var cameraBeatZoom:Float = 0.015;
 
+  }
 	override function beatHit()
 	{
 		super.beatHit();
