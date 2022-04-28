@@ -407,14 +407,13 @@ class AndroidControls extends Option
 
 class QTOptimiseOption extends Option
 {
-	public function new(desc:String)
+	public function new()
 	{
 		super();
 	}
 
 	public override function press():Bool
 	{
-                if(changeData)
 		Main.qtOptimisation = !Main.qtOptimisation;
 		FlxG.save.data.qtOptimisation = Main.qtOptimisation;
 		display = updateDisplay();
