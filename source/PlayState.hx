@@ -3044,7 +3044,7 @@ class PlayState extends MusicBeatState
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
-		#		if (FlxG.keys.justPressed.FIVE){
+		if (FlxG.keys.justPressed.FIVE){
 			noGameOver = !noGameOver;
 			if(noGameOver)
 				FlxG.sound.play(Paths.sound('glitch-error02'),0.65);
