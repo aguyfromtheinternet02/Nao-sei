@@ -4539,7 +4539,6 @@ class PlayState extends MusicBeatState
 	var cameraBeatSpeed:Int = 4;
 	var cameraBeatZoom:Float = 0.015;
 
-  }
 	override function beatHit()
 	{
 		super.beatHit();
@@ -4559,7 +4558,8 @@ class PlayState extends MusicBeatState
 			}
 
 		}
-
+  
+}
 		// HARDCODING FOR MILF ZOOMS!
 		/*}
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
