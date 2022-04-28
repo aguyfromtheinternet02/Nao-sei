@@ -366,6 +366,7 @@ class DialogueBox extends FlxSpriteGroup
 	var dialogueOpened:Bool = false;
 	var dialogueStarted:Bool = false;
 
+        }
 	override function update(elapsed:Float)
 	{
 		// HARD CODING CUZ IM STUPDI
