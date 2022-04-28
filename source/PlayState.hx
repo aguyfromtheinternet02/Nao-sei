@@ -4566,8 +4566,7 @@ class PlayState extends MusicBeatState
 	{
 		super.beatHit();
 		
-			// Dad doesnt interupt his own notes
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
+			/*if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
 				if(SONG.song.toLowerCase() == "cessation"){
 					if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 					{
@@ -4580,23 +4579,12 @@ class PlayState extends MusicBeatState
 					dad.dance();
 			}
 
-		}
+		}*/
 
 		// Copy and pasted the milf code above for censory overload -Haz
 		if (curSong.toLowerCase() == 'censory-overload')
 		{
-			//Probably a better way of doing this lmao but I can't be bothered to clean this shit up -Haz
-			//Cam zooms and gas release effect!
 
-			/*if(curBeat >= 4 && curBeat <= 32) //for testing
-			{
-				//Gas Release effect
-				if (curBeat % 4 == 0)
-				{
-					qt_gas01.animation.play('burst');
-					qt_gas02.animation.play('burst');
-				}
-			}*/
 			if(curBeat >= 80 && curBeat <= 208) //first drop
 			{
 				//Gas Release effect
@@ -4725,8 +4713,6 @@ class PlayState extends MusicBeatState
 		if (curBeat % gfSpeed == 0)
 		{
 			gf.dance();
-			//if(SONG.song.toLowerCase()=='censory-overload') //Basically unused now lmao
-				//gf404.dance();
 		}
 
 		if (!boyfriend.animation.curAnim.name.startsWith("sing") && !bfDodging)
