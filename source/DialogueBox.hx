@@ -48,12 +48,12 @@ class DialogueBox extends FlxSpriteGroup
 			case 'thorns':
 				FlxG.sound.playMusic(Paths.music('LunchboxScary'), 0);
 				FlxG.sound.music.fadeIn(1, 0, 0.8);
-				case 'carefree':
-					FlxG.sound.playMusic(Paths.music('carefree-dialogue-loop'), 0);
-					FlxG.sound.music.fadeIn(1, 0, 0.1);
-				case 'censory-overload' | 'terminate':
-					FlxG.sound.playMusic(Paths.music('spooky_ambience'), 0);
-					FlxG.sound.music.fadeIn(1, 0, 0.47);
+			case 'carefree':
+				FlxG.sound.playMusic(Paths.music('carefree-dialogue-loop'), 0);
+				FlxG.sound.music.fadeIn(1, 0, 0.1);
+			case 'censory-overload' | 'terminate':
+				FlxG.sound.playMusic(Paths.music('spooky_ambience'), 0);
+				FlxG.sound.music.fadeIn(1, 0, 0.47);
 		}
 
 		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFB3DFd8);
@@ -226,7 +226,8 @@ class DialogueBox extends FlxSpriteGroup
 				portraitRightALT.flipX = true;
 				portraitRightALT.visible = false;
 			}
-			else if(PlayState.SONG.song.toLowerCase()=='cessation'){ //Defining portraits for Cessation (ending)
+			else if
+                        { (PlayState.SONG.song.toLowerCase()=='cessation'){ //Defining portraits for Cessation (ending)
 				portraitLeft = new FlxSprite(-20, 50);
 				portraitLeft.frames = Paths.getSparrowAtlas('ui/roboFUTUREPortait');
 				portraitLeft.animation.addByPrefix('enter', 'robo_potraitALT', 24, false);
@@ -259,7 +260,8 @@ class DialogueBox extends FlxSpriteGroup
 				add(portraitRightALT);
 				portraitRightALT.visible = false;
 			}
-			else{ //Pretty sure this is for Carefree
+			else
+                        { //Pretty sure this is for Carefree
 				portraitLeft = new FlxSprite(-20, 50);
 				portraitLeft.frames = Paths.getSparrowAtlas('ui/qtPortait');
 				portraitLeft.animation.addByPrefix('enter', 'finished_qt_sprite_potrait', 24, false);
@@ -366,7 +368,6 @@ class DialogueBox extends FlxSpriteGroup
 	var dialogueOpened:Bool = false;
 	var dialogueStarted:Bool = false;
 
-        }
 	override function update(elapsed:Float)
 	{
 		// HARD CODING CUZ IM STUPDI
