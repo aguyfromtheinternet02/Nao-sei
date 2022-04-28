@@ -4726,7 +4726,6 @@ class PlayState extends MusicBeatState
 		{
 			if (!(SONG.notes[Math.floor(curStep / 16)].mustHitSection) && !dad.animation.curAnim.name.startsWith("sing"))
 			{
-				if(!qtIsBlueScreened && !qtCarelessFin)
 					if(SONG.song.toLowerCase() == "cessation"){
 						if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 						{
