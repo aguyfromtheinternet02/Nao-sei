@@ -3478,9 +3478,6 @@ class PlayState extends MusicBeatState
 					camHUD.visible = false;
 
 					FlxG.sound.play(Paths.sound('Lights_Shut_off'));
-					
-							//Slight delay to allow sound to play. -Haz
-							new FlxTimer().start(2, function(tmr:FlxTimer)
 				}
 
 				FlxTransitionableState.skipNextTransIn = true;
