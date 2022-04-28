@@ -404,3 +404,25 @@ class AndroidControls extends Option
 		return "Android Controls";
 	}
 }
+
+class QTOptimiseOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+	}
+
+	public override function press():Bool
+	{
+                if(changeData)
+		Main.qtOptimisation = !Main.qtOptimisation;
+		FlxG.save.data.qtOptimisation = Main.qtOptimisation;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "QT Optimisation " + (Main.qtOptimisation ? "on" : "off");
+	}
+}
