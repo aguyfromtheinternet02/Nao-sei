@@ -163,7 +163,7 @@ class PlayState extends MusicBeatState
 	var santa:FlxSprite;
 
 	var bgGirls:BackgroundGirls;
-	var wiggleShit:WiggleEffect = new WiggleEffect
+	var wiggleShit:WiggleEffect = new WiggleEffect();
 	
 	//QT Week
 	var hazardRandom:Int = 1; //This integer is randomised upon song start between 1-5.
