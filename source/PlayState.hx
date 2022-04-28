@@ -1221,6 +1221,23 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
+			case 'streetFinal' | 'streetCute' | 'street' :
+				boyfriend.x += 40;
+				boyfriend.y += 65;
+				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+					dad.x -= 70;
+					dad.y += 66;
+					if(!Main.qtOptimisation){
+						boyfriend404.x += 40;
+						boyfriend404.y += 65;
+						dad404.x -= 70;
+						dad404.y += 66;
+					}
+				}else if(SONG.song.toLowerCase() == 'terminate' || SONG.song.toLowerCase() == 'cessation'){
+					dad.x -= 70;
+					dad.y += 65;
+				}
+				
 		}
 
 		add(gf);
@@ -1231,6 +1248,12 @@ class PlayState extends MusicBeatState
 
 		add(dad);
 		add(boyfriend);
+		
+		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+			add(gf404);
+			add(boyfriend404);
+			add(dad404);
+		}
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
