@@ -4905,7 +4905,7 @@ class PlayState extends MusicBeatState
 
 				if (FlxG.random.bool(10) && fastCarCanDrive)
 					fastCarDrive();
-			case "philly":
+			/*case "philly":
 				if (!trainMoving)
 					trainCooldown += 1;
 
@@ -4921,7 +4921,7 @@ class PlayState extends MusicBeatState
 					phillyCityLights.members[curLight].visible = true;
 
 					phillyCityLights.members[curLight].alpha = 1;
-					FlxTween.tween(phillyCityLights.members[curLight], {alpha: 0}, Conductor.crochet / 1000 * 4, {ease: FlxEase.linear});
+					FlxTween.tween(phillyCityLights.members[curLight], {alpha: 0}, Conductor.crochet / 1000 * 4, {ease: FlxEase.linear});*/
 				}
 
 				if (curBeat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8)
