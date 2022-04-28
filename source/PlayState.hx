@@ -4560,6 +4560,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// HARDCODING FOR MILF ZOOMS!
+			}
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
 		{
 			FlxG.camera.zoom += 0.015;
@@ -4838,7 +4839,7 @@ class PlayState extends MusicBeatState
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
 		wiggleShit.update(Conductor.crochet);
 
-		// HARDCODING FOR MILF ZOOMS!
+		/* HARDCODING FOR MILF ZOOMS!
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
 		{
 			FlxG.camera.zoom += cameraBeatZoom;
@@ -4871,7 +4872,7 @@ class PlayState extends MusicBeatState
 		{
 			boyfriend.dance();
 
-		}
+		}*/
 
 
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo')
