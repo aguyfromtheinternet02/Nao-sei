@@ -1914,6 +1914,12 @@ class PlayState extends MusicBeatState
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
+
+		if (!paused)
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		FlxG.sound.music.onComplete = endSong;
+		vocals.play();
+		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 		
 		bfCanDodge = true;
 		hazardRandom = FlxG.random.int(1, 5);
@@ -1921,15 +1927,6 @@ class PlayState extends MusicBeatState
 			add(kb_attack_alert);
 			add(kb_attack_saw);
 		}*/
-
-		if (!paused)
-		{
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		}
-		
-		FlxG.sound.music.onComplete = endSong;
-		vocals.play();
-		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
 		#if windows
 		// Updating Discord Rich Presence (with Time Left)
