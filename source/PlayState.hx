@@ -1920,7 +1920,7 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		FlxG.sound.music.onComplete = Songend;
+		//FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
@@ -3060,7 +3060,7 @@ class PlayState extends MusicBeatState
 
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
-			Songend();
+			endSong();
 		#end
 	}
 
@@ -3409,7 +3409,7 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new StoryMenuState());
 
-	function Songend():Void
+	function endSong():Void
 	{
 		canPause = false;
 		FlxG.sound.music.volume = 0;
