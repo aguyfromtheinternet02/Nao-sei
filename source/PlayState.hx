@@ -198,8 +198,6 @@ class PlayState extends MusicBeatState
 	public static var deathBySawBlade:Bool = false;
 	var canSkipEndScreen:Bool = false; //This is set to true at the "thanks for playing" screen. Once true, in update, if enter is pressed it'll skip to the main menu.
 
-	var noGameOver:Bool = false; //If on debug mode, pressing 5 would toggle this variable, making it impossible to die!
-
 	var talking:Bool = true;
 	var songScore:Int = 0;
 	var scoreTxt:FlxText;
@@ -1926,7 +1924,7 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		//FlxG.sound.music.onComplete = endSong;
+		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
@@ -3067,13 +3065,6 @@ class PlayState extends MusicBeatState
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
-		if (FlxG.keys.justPressed.FIVE){
-			noGameOver = !noGameOver;
-			if(noGameOver)
-				FlxG.sound.play(Paths.sound('glitch-error02'),0.65);
-			else
-				FlxG.sound.play(Paths.sound('glitch-error03'),0.65);
-		}
 		#end
 	}
 
