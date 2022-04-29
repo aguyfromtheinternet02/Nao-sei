@@ -1917,16 +1917,12 @@ class PlayState extends MusicBeatState
 		
 		bfCanDodge = true;
 		hazardRandom = FlxG.random.int(1, 5);
-		/*if(curSong.toLowerCase() == 'tutorial'){ //Change this so that they appear when the relevant function is first called!!!!
-			add(kb_attack_alert);
-			add(kb_attack_saw);
-		}*/
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
-		//FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
 		#if windows
 		// Updating Discord Rich Presence (with Time Left)
@@ -3406,7 +3402,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.log.notice("Back to the menu you go!!!");
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('qtMenu'));
 
 			transIn = FlxTransitionableState.defaultTransIn;
 			transOut = FlxTransitionableState.defaultTransOut;
@@ -3446,7 +3442,7 @@ class PlayState extends MusicBeatState
 
 			if (storyPlaylist.length <= 0)
 			{
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('qtMenu'));
 
 				transIn = FlxTransitionableState.defaultTransIn;
 				transOut = FlxTransitionableState.defaultTransOut;
