@@ -637,7 +637,7 @@ class PlayState extends MusicBeatState
 				add(qt_tv01);
 				qt_tv01.animation.play('idle');
 			}
-			case 'termination': //Seperated the two so terminate can load quicker (doesn't need to load in the attack animations and stuff)
+			case 'termination' | 'extermination': //Seperated the two so terminate can load quicker (doesn't need to load in the attack animations and stuff)
 			{
 				defaultCamZoom = 0.8125;
 				
@@ -1222,7 +1222,7 @@ class PlayState extends MusicBeatState
 			case 'streetFinal' | 'streetCute' | 'street' :
 				boyfriend.x += 40;
 				boyfriend.y += 65;
-				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' SONG.song.toLowerCase() == 'extermination'){
 					dad.x -= 70;
 					dad.y += 66;
 					if(!Main.qtOptimisation){
@@ -1247,7 +1247,7 @@ class PlayState extends MusicBeatState
 		add(dad);
 		add(boyfriend);
 		
-		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' SONG.song.toLowerCase() == 'extermination'){
 			add(gf404);
 			add(boyfriend404);
 			add(dad404);
@@ -1920,7 +1920,7 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		//FlxG.sound.music.onComplete = endSong;
+		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
@@ -3776,6 +3776,47 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(SONG.song.toLowerCase() == "extermination"){
+			//Dodge code, yes it's bad but oh well. -Haz
+			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
+
+			if(controls.ACCEPT)
+				trace('butttonpressed');
+
+			if(controls.ACCEPT && !bfDodging && bfCanDodge){
+				trace('DODGE START!');
+				bfDodging = true;
+				bfCanDodge = false;
+
+				boyfriend.playAnim('dodge');
+				if (qtIsBlueScreened)
+					boyfriend404.playAnim('dodge');
+
+				FlxG.sound.play(Paths.sound('dodge01'));
+
+				//Wait, then set bfDodging back to false. -Haz
+				//V1.2 - Timer lasts a bit longer (by 0.00225)
+				//new FlxTimer().start(0.22625, function(tmr:FlxTimer) 		//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				new FlxTimer().start(0.15, function(tmr:FlxTimer)			//UNCOMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				//new FlxTimer().start(bfDodgeTiming, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				{
+					bfDodging=false;
+					boyfriend.dance(); //V1.3 = This forces the animation to end when you are no longer safe as the animation keeps misleading people.
+					trace('DODGE END!');
+					//Cooldown timer so you can't keep spamming it.
+					//V1.3 = Incremented this by a little (0.005)
+					//new FlxTimer().start(0.1135, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					new FlxTimer().start(0.09225, function(tmr:FlxTimer)//V1.1 = Modified this by a little: from 0.1 to 0.8765 to make it a little easier to dodge the double sawblade lol
+																		//V1.2 = Incremented the previous by a little: from 0.8765 to 0.9225
+					//new FlxTimer().start(bfDodgeCooldown, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					{
+						bfCanDodge=true;
+						trace('DODGE RECHARGED!');
+					});
+				});
+			}
+		}
+		
 		// control arrays, order L D U R
 		var holdArray:Array<Bool> = [control.LEFT, control.DOWN, control.UP, control.RIGHT];
 		var pressArray:Array<Bool> = [
@@ -4402,6 +4443,291 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}
 		}
+		//Midsong events for Termination (such as the sawblade attack)
+		else if (curSong.toLowerCase() == 'extermination'){
+				//For animating KB during the 404 section since he animates every half beat, not every beat.
+			if(qtIsBlueScreened)
+			{
+				//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
+				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+				{
+					dad404.dance();
+				}
+			}
+
+			//Making GF scared for error section
+			if(curStep>=2816 && curStep<3328 && curStep % 2 == 0)
+			{
+				gf.playAnim('scared', true);
+				if(!Main.qtOptimisation)
+					gf404.playAnim('scared', true);
+			}
+
+
+			switch (curStep)
+			{
+				//Commented out stuff are for the double sawblade variations.
+				//It is recommended to not uncomment them unless you know what you're doing. They are also not polished at all so don't complain about them if you do uncomment them.
+				
+				
+				//CONVERTED THE CUSTOM INTRO FROM MODCHART INTO HARDCODE OR WHATEVER! NO MORE INVISIBLE NOTES DUE TO NO MODCHART SUPPORT!
+				case 1:
+					qt_tv01.animation.play("instructions_ALT");
+					FlxTween.tween(strumLineNotes.members[0], {y: strumLineNotes.members[0].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[7], {y: strumLineNotes.members[7].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if(!Main.qtOptimisation){
+						boyfriend404.alpha = 0; 
+						dad404.alpha = 0;
+						gf404.alpha = 0;
+					}
+					if(!Main.qtOptimisation){
+						add(bgFlash);
+						bg_RedFlash_Longer(true);
+					}
+				case 32:
+					FlxTween.tween(strumLineNotes.members[1], {y: strumLineNotes.members[1].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[6], {y: strumLineNotes.members[6].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					
+					if(!Main.qtOptimisation){
+						bg_RedFlash_Longer(true);
+					}
+				case 48:
+					add(kb_attack_saw);
+					add(kb_attack_alert);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 52:
+					KBATTACK_ALERT();
+				case 56:
+					KBATTACK(true);
+				case 96:
+					qt_tv01.animation.play("gl");
+					FlxTween.tween(strumLineNotes.members[3], {y: strumLineNotes.members[3].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[4], {y: strumLineNotes.members[4].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical_Longer(true);
+					}
+				case 64:
+					FlxTween.tween(strumLineNotes.members[2], {y: strumLineNotes.members[2].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[5], {y: strumLineNotes.members[5].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical_Longer(true);
+					}
+				case 112:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 116:
+					KBATTACK_ALERTDOUBLE();
+				case 120:
+					KBATTACK(true, "old/attack_alt01");
+					for (boi in strumLineNotes.members) { //FAIL SAFE TO ENSURE THAT ALL THE NOTES ARE VISIBLE WHEN PLAYING!!!!!
+						boi.alpha = 1;
+					}
+				case 123:
+					KBATTACK();
+				case 124:
+				    //FlxTween.tween(strumLineNotes.members[0], {alpha: 0}, 2, {ease: FlxEase.sineInOut}); //for testing outro code
+					KBATTACK(true, "old/attack_alt02");
+				case 128:
+					qt_tv01.animation.play("idle");
+				case 1280:
+					qt_tv01.animation.play("idle");
+				case 480:
+					qt_tv01.animation.play("watch");
+				case 516:
+					qt_tv01.animation.play("idle");
+
+				case 272 | 304 | 404 | 416 | 504 | 544 | 560 | 612 | 664 | 696 | 752 | 816 | 868 | 880 | 1088 | 1204 | 1344 | 1400 | 1428 | 1440 | 1472 | 1520 | 1584 | 1648 | 1680 | 1712 | 1744:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 276 | 308 | 408 | 420 | 508 | 548 | 564 | 616 | 668 | 700 | 756 | 820 | 872 | 884 | 1092 | 1208 | 1348 | 1404 | 1432 | 1444 | 1476 | 1524 | 1588 | 1652 | 1684 | 1716 | 1748: 
+					KBATTACK_ALERT();
+				case 280 | 312 | 412 | 424 | 512 | 552 | 568 | 620 | 672 | 704 | 760 | 824 | 876 | 888 | 1096 | 1212 | 1352 | 1408 | 1436 | 1448 | 1480 | 1528 | 1592 | 1656 | 1688 | 1720 | 1752:
+					KBATTACK(true);
+
+				case 1776 | 1904 | 2576 | 2596 | 2624 | 2640 | 2660 | 2704 | 2736 | 3072 | 3104 | 3136 | 3152 | 3168 | 3184 | 3216 | 3248 | 3312:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 1780 | 1908 | 2580 | 2600 | 2628 | 2644 | 2664 | 2708 | 2740 | 3076 | 3108 | 3140 | 3156 | 3172 | 3188 | 3220 | 3252 | 3316:
+					KBATTACK_ALERT();
+				case 1784 | 1912 | 2584 | 2604 | 2632 | 2648 | 2668 | 2712 | 2744 | 3080 | 3112 | 3144 | 3160 | 3176 | 3192 | 3224 | 3256 | 3320:
+					KBATTACK(true);
+
+				case 1808 | 1840 | 1872 | 1952 | 2000 | 2112 | 2148 | 2176 | 2192 | 2228 | 2240 | 2272 | 2768 | 2788 | 2800 | 2864 | 2916 | 2928 | 3032 | 3264 | 3280 | 3300:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 1812 | 1844 | 1876 | 1956 | 2004 | 2116 | 2152 | 2180 | 2196 | 2232 | 2244 | 2276 | 2772 | 2792 | 2804 | 2868 | 2920 | 2932 | 3036 | 3268 | 3284 | 3304:
+					KBATTACK_ALERT();
+				case 1816 | 1848 | 1880 | 1960 | 2008 | 2120 | 2156 | 2184 | 2200 | 2236 | 2248 | 2280 | 2776 | 2796 | 2872 | 2924 | 2936 | 3040 | 3272 | 3288 | 3308:
+					KBATTACK(true);
+
+                case 624 | 1136 | 2032 | 2608 | 2672 | 3084 | 3116 | 3696 | 4464:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 628 | 1140 | 2036 | 2612 | 2676 | 3088 | 3120 | 3700 | 4468:
+					KBATTACK_ALERTDOUBLE();
+				case 632 | 1144 | 2040 | 2616 | 2680 | 3092 | 3124 | 3704 | 4472:
+					KBATTACK(true, "old/attack_alt01");
+				case 635 | 1147 | 2043 | 2619 | 2683 | 3095 | 3127 | 3707 | 4151 | 4215 | 4347 | 4475:
+					KBATTACK();
+				case 636 | 1148 | 2044 | 2620 | 2684 | 3096 | 3128 | 3708 | 4476:
+					KBATTACK(true, "old/attack_alt02");
+				//Sawblades before bluescreen thing
+				//These were seperated for double sawblade experimentation if you're wondering.
+				//My god this organisation is so bad. Too bad!
+				//Yes, this is too bad! -DrkFon376
+				case 2304 | 2320 | 2340 | 2368 | 2384 | 2404 | 2496 | 2528:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2308 | 2324 | 2344 | 2372 | 2388 | 2408 | 2500 | 2532:
+					KBATTACK_ALERT();
+				case 2312 | 2328 | 2348 | 2376 | 2392 | 2412 | 2504 | 2536:
+					KBATTACK(true);
+
+				case 2352 | 2416:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2356 | 2420:
+					KBATTACK_ALERTDOUBLE();
+				case 2360 | 2424:
+					KBATTACK(true, "old/attack_alt01");
+				case 2363 | 2427:
+					KBATTACK();
+				case 2364 | 2428:
+					KBATTACK(true, "old/attack_alt02");
+
+				case 2560:
+					KBATTACK_ALERT();
+					KBATTACK();
+					qt_tv01.animation.play("eye");
+				case 2564:
+					KBATTACK_ALERT();
+				case 2568:
+					KBATTACK(true);
+				
+				case 2808:
+					//Change to glitch background
+					if(!Main.qtOptimisation){
+						streetBGerror.visible = true;
+						streetBG.visible = false;
+					}
+					FlxG.camera.shake(0.0075,0.675);
+					qt_tv01.animation.play("error");
+
+					KBATTACK(true);
+	
+				case 2816: //404 section
+					qt_tv01.animation.play("404");
+					gfSpeed = 1;
+					//Change to bluescreen background
+					if(!Main.qtOptimisation){
+						streetBG.visible = false;
+						streetBGerror.visible = false;
+						streetFrontError.visible = true;
+						qtIsBlueScreened = true;
+						CensoryOverload404();
+					}
+				case 3328: //Final drop
+					qt_tv01.animation.play("alert");
+					gfSpeed = 1;
+					//Revert back to normal
+					if(!Main.qtOptimisation){
+						streetBG.visible = true;
+						streetFrontError.visible = false;
+						qtIsBlueScreened = false;
+						CensoryOverload404();
+					}
+				case 3840 | 3844 | 3848 | 3852 | 3856 | 3860 | 3864 | 3868 | 3884 | 3900 | 3904 | 3908 | 3912 | 3916 | 3920 | 3948 | 3964 | 3968 | 3972 | 3976 | 3980 | 3996 | 4000 | 4004 | 4008 | 4012 | 4016 | 4044 | 4048 | 4052 | 4056 | 4060 | 4088 | 4092:
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3872 | 3888 | 3924 | 3936 | 3952 | 3984 | 4020 | 4032 | 4064 | 4076:
+					KBATTACK_ALERT();
+					KBATTACK();
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3876 | 3892 | 3928 | 3940 | 3956 | 3988 | 4024 | 4036 | 4068 | 4080:
+					KBATTACK_ALERT();
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3880 | 3896 | 3932 | 3944 | 3960 | 3992 | 4028 | 4040 | 4072 | 4084:
+					KBATTACK(true);
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 4120 | 4124 | 4156 | 4172 | 4188 | 4220 | 4236 | 4240 | 4244 | 4248 | 4252 | 4280 | 4284 | 4300 | 4304 | 4308 | 4312 | 4316 | 4320:
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4096 | 4108 | 4128 | 4140 | 4160 | 4176 | 4192 | 4204 | 4224 | 4256 | 4268 | 4288 | 4324 | 4336:
+					KBATTACK_ALERT();
+					KBATTACK();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4100 | 4112 | 4132 | 4164 | 4180 | 4196 | 4228 | 4260 | 4272 | 4292 | 4328:
+					KBATTACK_ALERT();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4144 | 4208 | 4340: 
+					KBATTACK_ALERTDOUBLE();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4104 | 4116 | 4136 | 4168 | 4184 | 4200 | 4232 | 4264 | 4276 | 4296 | 4332:
+					KBATTACK(true);
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4148 | 4212 | 4344:
+					KBATTACK(true, "old/attack_alt01");
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4152 | 4216 | 4348:
+					KBATTACK(true, "old/attack_alt02");
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 3360 | 3376 | 3396 | 3408 | 3424 | 3440 | 3504 | 3552 | 3576 | 3616 | 3636 | 3648 | 3664 | 3680 | 3776 | 3808 | 3824:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 3364 | 3380 | 3400 | 3412 | 3428 | 3444 | 3508 | 3556 | 3580 | 3620 | 3640 | 3652 | 3668 | 3684 | 3780 | 3812 | 3828:
+					KBATTACK_ALERT();
+				case 3368 | 3384 | 3404 | 3416 | 3432 | 3448 | 3512 | 3560 | 3584 | 3624 | 3644 | 3656 | 3672 | 3688 | 3784 | 3816 | 3832:
+					KBATTACK(true);
+
+				case 4368 | 4400 | 4432 | 4496 | 4528 | 4560 | 4592 | 4688:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 4372 | 4404 | 4436 | 4500 | 4532 | 4564 | 4596 | 4692:
+					KBATTACK_ALERT();
+				case 4376 | 4408 | 4440 | 4504 | 4536 | 4568 | 4600 | 4696://<----LMFAO this is the last sawblade placed on the last beat of the level. Funny, right? 
+					KBATTACK(true);
+								
+				case 4352: //Custom outro hardcoded instead of being part of the modchart! 
+					qt_tv01.animation.play("idle");
+					FlxTween.tween(strumLineNotes.members[2], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4384:
+					FlxTween.tween(strumLineNotes.members[3], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4416:
+					FlxTween.tween(strumLineNotes.members[0], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4448:
+					FlxTween.tween(strumLineNotes.members[1], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+
+				case 4480:
+					FlxTween.tween(strumLineNotes.members[6], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4512:
+					FlxTween.tween(strumLineNotes.members[7], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4544:
+					FlxTween.tween(strumLineNotes.members[4], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4576:
+					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+			}		
+		}
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
@@ -4687,7 +5013,27 @@ class PlayState extends MusicBeatState
 		{  
 			qt_tv01.animation.play("heart");
 		}
-
+			else if(curBeat >= 512 && curBeat <= 640) //1st drop
+			{
+				if(camZooming && FlxG.camera.zoom < 1.35)
+				{
+					FlxG.camera.zoom += 0.0075;
+					camHUD.zoom += 0.015;
+				}
+				if(!(curBeat == 640)) //To prevent alert flashing when I don't want it too.
+					qt_tv01.animation.play("alert");
+			}
+			else if(curBeat >= 832 && curBeat <= 1088) //last drop
+				{
+					if(camZooming && FlxG.camera.zoom < 1.35)
+					{
+						FlxG.camera.zoom += 0.0075;
+						camHUD.zoom += 0.015;
+					}
+					if(!(curBeat == 1088)) //To prevent alert flashing when I don't want it too.
+						qt_tv01.animation.play("alert");
+				}
+		}
 
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 		{
@@ -4717,7 +5063,7 @@ class PlayState extends MusicBeatState
 		{
 			if (!(SONG.notes[Math.floor(curStep / 16)].mustHitSection) && !dad.animation.curAnim.name.startsWith("sing"))
 			{
-				/*if(!qtIsBlueScreened && !qtCarelessFin)
+				if(!qtIsBlueScreened && !qtCarelessFin)
 					if(SONG.song.toLowerCase() == "cessation"){
 						if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 						{
@@ -4729,7 +5075,7 @@ class PlayState extends MusicBeatState
 					else
 						dad.dance();
 			}
-		}*/
+		}
 
 		//Same as above, but for 404 variants.
 		if(qtIsBlueScreened)
