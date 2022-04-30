@@ -1222,7 +1222,7 @@ class PlayState extends MusicBeatState
 			case 'streetFinal' | 'streetCute' | 'street' :
 				boyfriend.x += 40;
 				boyfriend.y += 65;
-				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' SONG.song.toLowerCase() == 'extermination'){
+				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination'){
 					dad.x -= 70;
 					dad.y += 66;
 					if(!Main.qtOptimisation){
@@ -1247,7 +1247,7 @@ class PlayState extends MusicBeatState
 		add(dad);
 		add(boyfriend);
 		
-		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' SONG.song.toLowerCase() == 'extermination'){
+		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination'){
 			add(gf404);
 			add(boyfriend404);
 			add(dad404);
@@ -1922,7 +1922,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
-		//FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
 		#if windows
 		// Updating Discord Rich Presence (with Time Left)
