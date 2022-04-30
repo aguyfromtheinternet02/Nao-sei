@@ -1920,7 +1920,7 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		//FlxG.sound.music.onComplete = endSong;
+		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
@@ -3058,11 +3058,11 @@ class PlayState extends MusicBeatState
 		}
 		
 
-		#if debug
+		/*#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
-	}
+	}*/
 
 	//Call this function to update the visuals for Censory overload!
 	function CensoryOverload404():Void
@@ -3430,6 +3430,10 @@ class PlayState extends MusicBeatState
 			averageAccuracy = FlxMath.roundDecimal(averageAccuracy / hitAccuracy.length + 1, 2);
 			Highscore.saveScore(SONG.song, songScore, storyDifficulty, averageAccuracy, maxCombo);
 			#end
+		}
+		
+		if(SONG.song.toLowerCase() == "termination"){
+			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
 		}
 
 		if (isStoryMode)
