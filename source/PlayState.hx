@@ -4710,6 +4710,7 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}		
 		}
+ }
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
