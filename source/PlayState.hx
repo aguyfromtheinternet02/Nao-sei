@@ -4711,6 +4711,7 @@ class PlayState extends MusicBeatState
 			}		
 		}
  }
+ 
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
