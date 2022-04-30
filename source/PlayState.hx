@@ -1922,7 +1922,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
-		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut}));
 
 		#if windows
 		// Updating Discord Rich Presence (with Time Left)
