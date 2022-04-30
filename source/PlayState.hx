@@ -4883,7 +4883,7 @@ class PlayState extends MusicBeatState
 	{
 		super.beatHit();
 		
-			/*if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
 				if(SONG.song.toLowerCase() == "cessation"){
 					if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 					{
@@ -4896,7 +4896,7 @@ class PlayState extends MusicBeatState
 					dad.dance();
 			}
 
-		}*/
+		}
 
 		// Copy and pasted the milf code above for censory overload -Haz
 		if (curSong.toLowerCase() == 'censory-overload')
