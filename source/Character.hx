@@ -169,7 +169,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'robot_angry':
-				tex = Paths.getSparrowAtlas('robot_angry');
+				tex = Paths.getSparrowAtlas('characters/robot_angry');
 				frames = tex;
 
 				animation.addByPrefix('idle', "KB_angryALT_idleBabyRage", 26, false);
