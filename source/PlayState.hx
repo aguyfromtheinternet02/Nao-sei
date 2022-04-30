@@ -4271,7 +4271,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		//Midsong events for Termination (such as the sawblade attack)
-		else if (curSong.toLowerCase() == 'termination'){
+		else if (curSong.toLowerCase() == 'termination' || curSong.toLowerCase() == 'extermination'){
 			
 			//For animating KB during the 404 section since he animates every half beat, not every beat.
 			if(qtIsBlueScreened)
@@ -4282,6 +4282,8 @@ class PlayState extends MusicBeatState
 					dad404.dance();
 				}
 			}
+			
+			
 
 			//Making GF scared for error section
 			if(curStep>=2816 && curStep<3328 && curStep % 2 == 0)
@@ -4443,26 +4445,6 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}
 		}
-		//Midsong events for Termination (such as the sawblade attack)
-		else if (curSong.toLowerCase() == 'extermination'){
-				//For animating KB during the 404 section since he animates every half beat, not every beat.
-			if(qtIsBlueScreened)
-			{
-				//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
-				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
-				{
-					dad404.dance();
-				}
-			}
-
-			//Making GF scared for error section
-			if(curStep>=2816 && curStep<3328 && curStep % 2 == 0)
-			{
-				gf.playAnim('scared', true);
-				if(!Main.qtOptimisation)
-					gf404.playAnim('scared', true);
-			}
-
 
 			switch (curStep)
 			{
@@ -5087,7 +5069,7 @@ class PlayState extends MusicBeatState
 
 			//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
 			if(curStage!="nightmare"){ //No idea why this line causes a crash on REDACTED so erm... fuck you.
-				if(!(SONG.song.toLowerCase() == "termination")){
+				if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination")){
 					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing"))
 					{
 						dad404.dance();
