@@ -5035,7 +5035,6 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		}
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 		{
 			FlxG.camera.zoom += 0.015;
