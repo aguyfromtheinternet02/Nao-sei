@@ -167,6 +167,23 @@ class Character extends FlxSprite
 				addOffset("singLEFT-alt", 7, -321);
 				
 				playAnim('idle');
+
+			case 'robot_angry':
+				tex = Paths.getSparrowAtlas('robot_angry');
+				frames = tex;
+
+				animation.addByPrefix('idle', "KB_angryALT_idleBabyRage", 26, false);
+				animation.addByPrefix('singUP', "KB_angry_Up", 24, false);
+				animation.addByPrefix('singDOWN', "KB_angry_Down", 24, false);
+				animation.addByPrefix('singLEFT', 'KB_angry_Left', 24, false);
+				animation.addByPrefix('singRIGHT', 'KB_angry_Right', 24, false);
+
+				addOffset('idle', 168, -129);
+				addOffset("singLEFT", 268, 37);
+				addOffset("singRIGHT", -110, -161);
+				addOffset("singDOWN", 184, -182);
+				addOffset("singUP", 173, 52);
+
 			case 'robot':
 				//robot = kb = killerbyte
 				tex = Paths.getSparrowAtlas('characters/robot');
