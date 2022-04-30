@@ -3058,11 +3058,11 @@ class PlayState extends MusicBeatState
 		}
 		
 
-		/*#if debug
+		#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
-	}*/
+	}
 
 	//Call this function to update the visuals for Censory overload!
 	function CensoryOverload404():Void
@@ -3531,7 +3531,6 @@ class PlayState extends MusicBeatState
 	var endingSong:Bool = false;
 
   }
-	}
 	}
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
