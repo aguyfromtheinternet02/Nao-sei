@@ -4283,8 +4283,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 			
-			
-
 			//Making GF scared for error section
 			if(curStep>=2816 && curStep<3328 && curStep % 2 == 0)
 			{
@@ -4710,8 +4708,6 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}		
 		}
- }
- 
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
@@ -5263,5 +5259,4 @@ class PlayState extends MusicBeatState
 	}
 
 	var curLight:Int = 0;
-}
 }
