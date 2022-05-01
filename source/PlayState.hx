@@ -1918,7 +1918,7 @@ class PlayState extends MusicBeatState
 		bfCanDodge = true;
 		hazardRandom = FlxG.random.int(1, 5);
 
-		if (!paused)
+		//if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
@@ -4484,23 +4484,22 @@ class PlayState extends MusicBeatState
 	var lightningOffset:Int = 8;
 
 	//some effects
-  }
-	private function spinHudCamera()
+	public function spinHudCamera()
 	{
 		camHUD.angle = camHUD.angle + (!spinCamHudLeft ? spinCamHudSpeed : spinCamHudSpeed / -1) / 1;
 	}
-	private function spinGameCamera()
+	public function spinGameCamera()
 	{
 		camGame.angle = camGame.angle + (!spinCamGameLeft ? spinCamGameSpeed : spinCamGameSpeed / -1) / 1;
 	}
-	private function spinPlayerStrumLineNotes()
+	public function spinPlayerStrumLineNotes()
 	{
 		playerStrums.forEach(function(spr:FlxSprite)
 			{
 				spr.angle = spr.angle + (!spinPlayerNotesLeft ? spinPlayerNotesSpeed : spinPlayerNotesSpeed / -1) / 1 * (spr.ID + 2);
 			});
 	}
-	private function spinEnemyStrumLineNotes()
+	public function spinEnemyStrumLineNotes()
 	{
 		dadStrums.forEach(function(spr:FlxSprite)
 			{
@@ -4508,7 +4507,7 @@ class PlayState extends MusicBeatState
 			});
 	}
 
-	private function changeDadCharacter(char:String = "dad")
+	public function changeDadCharacter(char:String = "dad")
 	{
 		var oldDadX:Float = dad.x;
 		var oldDadY:Float = dad.y;
@@ -4520,14 +4519,14 @@ class PlayState extends MusicBeatState
         	add(dad);
 	}
 
-	private function changeAllCharacters(charDad:String = "dad", charGf:String = "gf", charBf:String = "bf")
+	public function changeAllCharacters(charDad:String = "dad", charGf:String = "gf", charBf:String = "bf")
 	{
 		changeGFCharacter(charGf);
 		changeDadCharacter(charDad);
 		changeBFCharacter(charBf);
 	}
 
-	private function changeGFCharacter(char:String = "gf")
+	public function changeGFCharacter(char:String = "gf")
 	{
 		var oldGFX:Float = gf.x;
 		var oldGFY:Float = gf.y;
@@ -4539,7 +4538,7 @@ class PlayState extends MusicBeatState
         	add(gf);
 	}
 
-	private function changeBFCharacter(char:String = "bf")
+	public function changeBFCharacter(char:String = "bf")
 	{
 		var oldBfX:Float = boyfriend.x;
 		var oldBfY:Float = boyfriend.y;
