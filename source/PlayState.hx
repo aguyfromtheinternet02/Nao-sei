@@ -4709,8 +4709,7 @@ class PlayState extends MusicBeatState
 			}		
 		}
 		//Midsong events for Termination (such as the sawblade attack)
-		}
-		(curSong.toLowerCase() == 'extermination'){
+		else if(curSong.toLowerCase() == 'extermination'){
 				//For animating KB during the 404 section since he animates every half beat, not every beat.
 			if(qtIsBlueScreened)
 			{
@@ -4994,7 +4993,6 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}		
 		}
-	}
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
@@ -5546,4 +5544,6 @@ class PlayState extends MusicBeatState
 	}
 
 	var curLight:Int = 0;
+}
+}
 }
