@@ -4484,6 +4484,7 @@ class PlayState extends MusicBeatState
 	var lightningOffset:Int = 8;
 
 	//some effects
+  }
 	public function spinHudCamera()
 	{
 		camHUD.angle = camHUD.angle + (!spinCamHudLeft ? spinCamHudSpeed : spinCamHudSpeed / -1) / 1;
@@ -4933,6 +4934,5 @@ class PlayState extends MusicBeatState
 	}
 
 	var curLight:Int = 0;
-}
 }
 }
