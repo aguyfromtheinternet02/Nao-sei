@@ -1994,6 +1994,9 @@ class PlayState extends MusicBeatState
 
 	function startSong():Void
 	{
+		FlxG.sound.music.onComplete = endSong;
+		vocals.play();
+		
 		startingSong = false;
 
 		previousFrameTime = FlxG.game.ticks;
@@ -2003,10 +2006,7 @@ class PlayState extends MusicBeatState
 		hazardRandom = FlxG.random.int(1, 5);
 
 		if (!paused)
-		{
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		}
-		
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
 		#if windows
@@ -3498,8 +3498,6 @@ class PlayState extends MusicBeatState
 	{
 		canPause = false;
 		FlxG.sound.music.volume = 0;
-		FlxG.sound.music.onComplete = endSong;
-		vocals.play();
 		vocals.volume = 0;
                 #if android
 	        androidc.visible = false;
