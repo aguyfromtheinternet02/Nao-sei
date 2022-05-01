@@ -1994,9 +1994,6 @@ class PlayState extends MusicBeatState
 
 	function startSong():Void
 	{
-		FlxG.sound.music.onComplete = endSong;
-		vocals.play();
-		
 		startingSong = false;
 
 		previousFrameTime = FlxG.game.ticks;
@@ -2007,6 +2004,9 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+			if (!endSong)
+		FlxG.sound.music.onComplete = endSong;
+		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
 		#if windows
