@@ -184,6 +184,8 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
 
+				playAnim('idle');
+
 			case 'robot':
 				//robot = kb = killerbyte
 				tex = Paths.getSparrowAtlas('characters/kb/robot');
@@ -206,6 +208,9 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", -110, -161);
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
+
+				playAnim('danceRight');
+
 			//Bluescreen section characters:
 			case 'gf_404':
 				// GIRLFRIEND CODE
@@ -297,6 +302,8 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
 
+				playAnim('danceRight');
+
 			case 'robot_404-TERMINATION':
 				tex = Paths.getSparrowAtlas('characters/kb/robot_404-angry');
 				frames = tex;
@@ -312,6 +319,8 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", -110, -161);
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
+
+				playAnim('danceRight');
 
 			case 'qt-kb':
 
@@ -363,6 +372,8 @@ class Character extends FlxSprite
 				addOffset("singLEFT-alt", 133, -75);
 				addOffset("singRIGHT-alt", 16, -135);
 
+				playAnim('danceRightNormal');
+
 			case 'qt-meme':
 				// QT = Cutie
 				tex = Paths.getSparrowAtlas('characters/qt_meme');
@@ -404,6 +415,8 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -202);
 				addOffset("singUP", 173, -18);
 
+				playAnim('danceRight');
+
 			case 'robot_classic_404':
 
 				tex = Paths.getSparrowAtlas('characters/robot_classic_404');
@@ -422,6 +435,8 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", -110, -161);
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
+
+				playAnim('danceRight');
 
 			case 'qt_classic':
 				tex = Paths.getSparrowAtlas('characters/qt_classic');
