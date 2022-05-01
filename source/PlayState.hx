@@ -3614,6 +3614,8 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new StoryMenuState());
 
+  }
+  }
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
