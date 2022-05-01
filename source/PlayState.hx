@@ -840,6 +840,73 @@ class PlayState extends MusicBeatState
 
 		                  var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
 	                          add(street);
+			}
+			//Okay, so erm... I was going to add secret song to the QT mod which would introduce you to "her"... but I scrapped it due to not making much sense (BF has no involvement with Brutality).
+			case 'redacted': 
+			{
+				defaultCamZoom = 0.45;
+				curStage = 'nightmare';
+
+				var bg:FlxSprite = new FlxSprite(-750, -200).loadGraphic(Paths.image('weeb/pixelUI/ssshhh/redacted/nightmare_gradient'));
+				bg.antialiasing = true;
+				bg.screenCenter();
+				bg.scrollFactor.set(0,0);
+				bg.active = false;
+				add(bg);
+				var floor:FlxSprite = new FlxSprite(-750, -200).loadGraphic(Paths.image('weeb/pixelUI/ssshhh/redacted/nightmare'));
+				floor.antialiasing = true;
+				floor.scrollFactor.set(0.9, 0.9);
+				floor.active = false;
+				add(floor);
+
+
+				boyfriend404 = new Boyfriend(770, 450, 'bf');
+				boyfriend404.alpha = 0.0125;
+				//So that the game doesn't crash lmao
+				dad404 = new Character(100,100,'monster');
+				gf404 = new Character(400,130,'gf_404');
+				gf404.scrollFactor.set(0.95, 0.95);
+				dad404.alpha = 0;
+				gf404.alpha = 0;
+
+				vignette = new FlxSprite().loadGraphic(Paths.image('weeb/pixelUI/ssshhh/redacted/vignette'));
+				vignette.updateHitbox();
+				vignette.screenCenter();
+				vignette.scrollFactor.set(0,0);
+				//vignette.setGraphicSize(Std.int(vignette.width * 0.8));
+				vignette.antialiasing = true;
+				add(vignette);
+				vignette.cameras = [camHUD];
+
+				qt_tv01 = new FlxSprite();
+				qt_tv01.frames = Paths.getSparrowAtlas('weeb/pixelUI/ssshhh/redacted/TV_secret');
+				qt_tv01.animation.addByPrefix('idle', 'TVSINGLE-IDLE', 24, true);
+				qt_tv01.animation.addByPrefix('part1', 'TVSINGLE-01', 24, true);
+				qt_tv01.animation.addByPrefix('part2', 'TVSINGLE-02', 24, true);
+				qt_tv01.animation.addByPrefix('part3', 'TVSINGLE-03', 24, true);
+				qt_tv01.animation.addByPrefix('part4', 'TVSINGLE-04', 24, true);
+
+				//qt_tv01.animation.addByPrefix('alert', 'TV_Attention', 26, false);
+
+				qt_tv01.setPosition(-62, 540);
+				qt_tv01.setGraphicSize(Std.int(qt_tv01.width * 1.2));
+				qt_tv01.updateHitbox();
+				qt_tv01.antialiasing = true;
+				qt_tv01.scrollFactor.set(0.89, 0.89);
+				add(qt_tv01);
+				qt_tv01.animation.play('idle');
+
+				//Alert!
+				kb_attack_alert = new FlxSprite();
+				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW');
+				kb_attack_alert.animation.addByPrefix('alert', 'kb_attack_animation_alert-single', 24, false);	
+				kb_attack_alert.animation.addByPrefix('alertDOUBLE', 'kb_attack_animation_alert-double', 24, false);	
+				kb_attack_alert.antialiasing = true;
+				kb_attack_alert.setGraphicSize(Std.int(kb_attack_alert.width * 1.5));
+				kb_attack_alert.cameras = [camHUD];
+				kb_attack_alert.x = FlxG.width - 700;
+				kb_attack_alert.y = 205;
+				kb_attack_alert.alpha = 0.2;
 		          }
 		          case 'milf' | 'satin-panties' | 'high':
 		          {
@@ -1246,6 +1313,12 @@ class PlayState extends MusicBeatState
 
 		add(dad);
 		add(boyfriend);
+		
+		if(curStage == "nightmare"){
+			dad.alpha=0;
+			gf.alpha=0;
+			add(boyfriend404);
+		}
 		
 		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
 			add(gf404);
@@ -1800,6 +1873,11 @@ class PlayState extends MusicBeatState
 	        #end
 		generateStaticArrowsDAD();
 		generateStaticArrowsBF();
+		if(curStage == "nightmare"){
+			remove(vignette); //update layering?
+			add(vignette);
+			vignette.cameras = [camHUD];
+		}
 
 		
 		talking = false;
