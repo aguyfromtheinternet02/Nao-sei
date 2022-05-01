@@ -169,7 +169,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'robot_angry':
-				tex = Paths.getSparrowAtlas('characters/robot_angry');
+				tex = Paths.getSparrowAtlas('characters/kb/robot_angry');
 				frames = tex;
 
 				animation.addByPrefix('idle', "KB_angryALT_idleBabyRage", 26, false);
@@ -186,7 +186,7 @@ class Character extends FlxSprite
 
 			case 'robot':
 				//robot = kb = killerbyte
-				tex = Paths.getSparrowAtlas('characters/robot');
+				tex = Paths.getSparrowAtlas('characters/kb/robot');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB_DanceRight", 26, false);
@@ -280,7 +280,7 @@ class Character extends FlxSprite
 				flipX = true;
 				
 			case 'robot_404':
-				tex = Paths.getSparrowAtlas('characters/robot_404');
+				tex = Paths.getSparrowAtlas('characters/kb/robot_404');
 				frames = tex;
 
 				animation.addByPrefix('danceRight', "KB404_DanceRight", 25, false);
@@ -298,7 +298,7 @@ class Character extends FlxSprite
 				addOffset("singUP", 173, 52);
 
 			case 'robot_404-TERMINATION':
-				tex = Paths.getSparrowAtlas('characters/robot_404-angry');
+				tex = Paths.getSparrowAtlas('characters/kb/robot_404-angry');
 				frames = tex;
 
 				animation.addByPrefix('idle', "KB404ALT_idleBabyRage", 27, false);
@@ -315,7 +315,7 @@ class Character extends FlxSprite
 
 			case 'qt-kb':
 
-				tex = Paths.getSparrowAtlas('characters//qt-kbV2');
+				tex = Paths.getSparrowAtlas('characters/kb/qt-kbV2');
 				frames = tex;
 
 
