@@ -1999,8 +1999,6 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 		
-		FlxG.sound.music.onComplete = endSong;
-		
 		bfCanDodge = true;
 		hazardRandom = FlxG.random.int(1, 5);
 
@@ -2008,8 +2006,6 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		}
-		
-		vocals.play();
 		
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
 
@@ -3502,6 +3498,8 @@ class PlayState extends MusicBeatState
 	{
 		canPause = false;
 		FlxG.sound.music.volume = 0;
+		FlxG.sound.music.onComplete = endSong;
+		vocals.play();
 		vocals.volume = 0;
                 #if android
 	        androidc.visible = false;
