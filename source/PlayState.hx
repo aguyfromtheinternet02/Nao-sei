@@ -4710,7 +4710,7 @@ class PlayState extends MusicBeatState
 		}
 		//Midsong events for Termination (such as the sawblade attack)
 		}
-		else if(curSong.toLowerCase() == 'extermination'){
+		(curSong.toLowerCase() == 'extermination'){
 				//For animating KB during the 404 section since he animates every half beat, not every beat.
 			if(qtIsBlueScreened)
 			{
