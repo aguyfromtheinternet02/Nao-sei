@@ -4489,7 +4489,7 @@ class PlayState extends MusicBeatState
 	{
 		camHUD.angle = camHUD.angle + (!spinCamHudLeft ? spinCamHudSpeed : spinCamHudSpeed / -1) / 1;
 	}
-	public function spinGameCamera()
+	private function spinGameCamera()
 	{
 		camGame.angle = camGame.angle + (!spinCamGameLeft ? spinCamGameSpeed : spinCamGameSpeed / -1) / 1;
 	}
