@@ -2004,7 +2004,6 @@ class PlayState extends MusicBeatState
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-			if (!endSong)
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
@@ -3615,8 +3614,6 @@ class PlayState extends MusicBeatState
 
 	var endingSong:Bool = false;
 
-  }
-	}
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
