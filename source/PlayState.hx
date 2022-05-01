@@ -197,6 +197,8 @@ class PlayState extends MusicBeatState
 	var pincer4:FlxSprite;
 	public static var deathBySawBlade:Bool = false;
 	var canSkipEndScreen:Bool = false; //This is set to true at the "thanks for playing" screen. Once true, in update, if enter is pressed it'll skip to the main menu.
+	
+  var vignette:FlxSprite;
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
