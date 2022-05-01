@@ -1999,6 +1999,8 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 		
+		FlxG.sound.music.onComplete = endSong;
+		
 		bfCanDodge = true;
 		hazardRandom = FlxG.random.int(1, 5);
 
@@ -2007,7 +2009,6 @@ class PlayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		}
 		
-		//FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 		
 		FlxTween.tween(timeTxt, {alpha: 1}, 1, {ease: FlxEase.circOut});
