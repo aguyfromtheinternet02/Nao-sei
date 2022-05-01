@@ -4243,7 +4243,7 @@ class PlayState extends MusicBeatState
 		}*/
 		
 		//For trolling :)
-		/*if (curSong.toLowerCase() == 'cessation'){
+		if (curSong.toLowerCase() == 'cessation'){
 			if(hazardRandom==5){
 				if(curStep == 1504){
 					add(kb_attack_alert);
@@ -4270,7 +4270,7 @@ class PlayState extends MusicBeatState
 					gf404.playAnim('scared', true);
 			}
 		}
-		//Midsong events for Termination (such as the sawblade attack)*/
+		//Midsong events for Termination (such as the sawblade attack)
 		if (curSong.toLowerCase() == 'termination'){
 			
 			//For animating KB during the 404 section since he animates every half beat, not every beat.
@@ -4708,6 +4708,48 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}		
 		}
+		//????
+		else if (curSong.toLowerCase() == 'redacted'){
+			switch (curStep)
+			{
+				case 1:
+					boyfriend404.alpha = 0.0125;
+				case 16:
+					FlxTween.tween(strumLineNotes.members[4], {y: strumLineNotes.members[4].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
+				case 20:
+					FlxTween.tween(strumLineNotes.members[5], {y: strumLineNotes.members[5].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
+				case 24:
+					FlxTween.tween(strumLineNotes.members[6], {y: strumLineNotes.members[6].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
+				case 28:
+					FlxTween.tween(strumLineNotes.members[7], {y: strumLineNotes.members[7].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
+
+				case 584:
+					add(kb_attack_alert);
+					kb_attack_alert.animation.play('alert'); //Doesn't call function since this alert is unique + I don't want sound lmao since it's already in the inst
+				case 588:
+					kb_attack_alert.animation.play('alert');
+				case 600 | 604 | 616 | 620 | 632 | 636 | 648 | 652 | 664 | 668 | 680 | 684 | 696 | 700:
+					kb_attack_alert.animation.play('alert');
+				case 704:
+					qt_tv01.animation.play("part1");
+					FlxTween.tween(strumLineNotes.members[0], {y: strumLineNotes.members[0].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
+					FlxTween.tween(strumLineNotes.members[1], {y: strumLineNotes.members[1].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
+					FlxTween.tween(strumLineNotes.members[2], {y: strumLineNotes.members[2].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
+					FlxTween.tween(strumLineNotes.members[3], {y: strumLineNotes.members[3].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
+				case 752:
+					qt_tv01.animation.play("part2");
+				case 800:
+					qt_tv01.animation.play("part3");
+				case 832:
+					qt_tv01.animation.play("part4");
+				case 1216:
+					qt_tv01.animation.play("idle");
+					qtIsBlueScreened = true; //Reusing the 404bluescreen code for swapping BF character.
+					boyfriend.alpha = 0;
+					boyfriend404.alpha = 1;
+					iconP1.animation.play("bf");										
+			}
+		}
 		//Midsong events for Termination (such as the sawblade attack)
 		else if (curSong.toLowerCase() == 'extermination'){
 				//For animating KB during the 404 section since he animates every half beat, not every beat.
@@ -4994,48 +5036,6 @@ class PlayState extends MusicBeatState
 			}		
 		}
 	}
-		//????
-		else if (curSong.toLowerCase() == 'redacted'){
-			switch (curStep)
-			{
-				case 1:
-					boyfriend404.alpha = 0.0125;
-				case 16:
-					FlxTween.tween(strumLineNotes.members[4], {y: strumLineNotes.members[4].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
-				case 20:
-					FlxTween.tween(strumLineNotes.members[5], {y: strumLineNotes.members[5].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
-				case 24:
-					FlxTween.tween(strumLineNotes.members[6], {y: strumLineNotes.members[6].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
-				case 28:
-					FlxTween.tween(strumLineNotes.members[7], {y: strumLineNotes.members[7].y + 10, alpha: 0.8}, 6, {ease: FlxEase.circOut});
-
-				case 584:
-					add(kb_attack_alert);
-					kb_attack_alert.animation.play('alert'); //Doesn't call function since this alert is unique + I don't want sound lmao since it's already in the inst
-				case 588:
-					kb_attack_alert.animation.play('alert');
-				case 600 | 604 | 616 | 620 | 632 | 636 | 648 | 652 | 664 | 668 | 680 | 684 | 696 | 700:
-					kb_attack_alert.animation.play('alert');
-				case 704:
-					qt_tv01.animation.play("part1");
-					FlxTween.tween(strumLineNotes.members[0], {y: strumLineNotes.members[0].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
-					FlxTween.tween(strumLineNotes.members[1], {y: strumLineNotes.members[1].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
-					FlxTween.tween(strumLineNotes.members[2], {y: strumLineNotes.members[2].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
-					FlxTween.tween(strumLineNotes.members[3], {y: strumLineNotes.members[3].y + 10, alpha: 0.1125}, 25, {ease: FlxEase.circOut});
-				case 752:
-					qt_tv01.animation.play("part2");
-				case 800:
-					qt_tv01.animation.play("part3");
-				case 832:
-					qt_tv01.animation.play("part4");
-				case 1216:
-					qt_tv01.animation.play("idle");
-					qtIsBlueScreened = true; //Reusing the 404bluescreen code for swapping BF character.
-					boyfriend.alpha = 0;
-					boyfriend404.alpha = 1;
-					iconP1.animation.play("bf");										
-			}
-		}
 
 		// yes this updates every step.
 		// yes this is bad
