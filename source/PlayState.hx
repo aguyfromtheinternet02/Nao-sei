@@ -4493,14 +4493,14 @@ class PlayState extends MusicBeatState
 	{
 		camGame.angle = camGame.angle + (!spinCamGameLeft ? spinCamGameSpeed : spinCamGameSpeed / -1) / 1;
 	}
-	public function spinPlayerStrumLineNotes()
+	private function spinPlayerStrumLineNotes()
 	{
 		playerStrums.forEach(function(spr:FlxSprite)
 			{
 				spr.angle = spr.angle + (!spinPlayerNotesLeft ? spinPlayerNotesSpeed : spinPlayerNotesSpeed / -1) / 1 * (spr.ID + 2);
 			});
 	}
-	public function spinEnemyStrumLineNotes()
+	private function spinEnemyStrumLineNotes()
 	{
 		dadStrums.forEach(function(spr:FlxSprite)
 			{
@@ -4508,7 +4508,7 @@ class PlayState extends MusicBeatState
 			});
 	}
 
-	public function changeDadCharacter(char:String = "dad")
+	private function changeDadCharacter(char:String = "dad")
 	{
 		var oldDadX:Float = dad.x;
 		var oldDadY:Float = dad.y;
@@ -4520,14 +4520,14 @@ class PlayState extends MusicBeatState
         	add(dad);
 	}
 
-	public function changeAllCharacters(charDad:String = "dad", charGf:String = "gf", charBf:String = "bf")
+	private function changeAllCharacters(charDad:String = "dad", charGf:String = "gf", charBf:String = "bf")
 	{
 		changeGFCharacter(charGf);
 		changeDadCharacter(charDad);
 		changeBFCharacter(charBf);
 	}
 
-	public function changeGFCharacter(char:String = "gf")
+	private function changeGFCharacter(char:String = "gf")
 	{
 		var oldGFX:Float = gf.x;
 		var oldGFY:Float = gf.y;
@@ -4539,7 +4539,7 @@ class PlayState extends MusicBeatState
         	add(gf);
 	}
 
-	public function changeBFCharacter(char:String = "bf")
+	private function changeBFCharacter(char:String = "bf")
 	{
 		var oldBfX:Float = boyfriend.x;
 		var oldBfY:Float = boyfriend.y;
