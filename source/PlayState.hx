@@ -4243,7 +4243,7 @@ class PlayState extends MusicBeatState
 		}*/
 		
 		//For trolling :)
-		if (curSong.toLowerCase() == 'cessation'){
+		/*if (curSong.toLowerCase() == 'cessation'){
 			if(hazardRandom==5){
 				if(curStep == 1504){
 					add(kb_attack_alert);
@@ -4270,8 +4270,8 @@ class PlayState extends MusicBeatState
 					gf404.playAnim('scared', true);
 			}
 		}
-		//Midsong events for Termination (such as the sawblade attack)
-		else if (curSong.toLowerCase() == 'termination'){
+		//Midsong events for Termination (such as the sawblade attack)*/
+		if (curSong.toLowerCase() == 'termination'){
 			
 			//For animating KB during the 404 section since he animates every half beat, not every beat.
 			if(qtIsBlueScreened)
