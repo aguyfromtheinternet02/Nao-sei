@@ -320,7 +320,7 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
 
-				playAnim('danceRight');
+				playAnim('idle');
 
 			case 'qt-kb':
 
