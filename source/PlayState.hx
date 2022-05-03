@@ -3327,26 +3327,77 @@ class PlayState extends MusicBeatState
 					if (SONG.song != 'Tutorial')
 						camZooming = true;
 
-					var altAnim:String = "";
+					var altAnim:String = "-alt";
+					
+							//Probably a better way of doing this by using the random int and throwing that at the end of the string... but I'm stupid and lazy. -Haz
+							switch(FlxG.random.int(1, 3))
+							{
+								case 2:
+									FlxG.sound.play(Paths.sound('glitch-error02'));
+								case 3:
+									FlxG.sound.play(Paths.sound('glitch-error03'));
+								default:
+									FlxG.sound.play(Paths.sound('glitch-error01'));
+							}
 
-					if (SONG.notes[Math.floor(Math.floor(curStep / 16))] != null)
+							//18.5% chance of an eye appearing on TV when glitching
+							if(curStage == "street" && FlxG.random.bool(18.5)){ 
+								if(!(curBeat >= 190 && curStep <= 898)){ //Makes sure the alert animation stuff isn't happening when the TV is playing the alert animation.
+									if(FlxG.random.bool(52)) //Randomises whether the eye appears on left or right screen.
+										qt_tv01.animation.play('eyeLeft');
+									else
+										qt_tv01.animation.play('eyeRight');
+
+									qt_tv01.animation.finishCallback = function(pog:String){
+										if(qt_tv01.animation.curAnim.name == 'eyeLeft' || qt_tv01.animation.curAnim.name == 'eyeRight'){ //Making sure this only executes for only the eye animation played by the random chance. Probably a better way of doing it, but eh. -Haz
+											qt_tv01.animation.play('idle');
+										}
+									}
+								}
+							}
+						}
+						else if (SONG.notes[Math.floor(Math.floor(curStep / 16))] != null)
 					{
 						if (SONG.notes[Math.floor(Math.floor(curStep / 16))].altAnim)
 							altAnim = '-alt';
 					}
 					if(daNote.altNote)
 						altAnim = '-alt';
+						
+						if(SONG.song.toLowerCase() == "cessation"){
+							if(curStep >= 640 && curStep <= 790) //first drop
+							{
+								altAnim = '-kb';
+							}
+							else if(curStep >= 1040 && curStep <= 1199)
+							{
+								altAnim = '-kb';
+							}
+						}
 
+						//Responsible for playing the animations for the Dad. -Haz
 					switch (Math.abs(daNote.noteData))
 					{
-						case 0:
-							dad.playAnim('singLEFT' + altAnim, true);
-						case 1:
-							dad.playAnim('singDOWN' + altAnim, true);
 						case 2:
-							dad.playAnim('singUP' + altAnim, true);
-						case 3:
-							dad.playAnim('singRIGHT' + altAnim, true);
+								if(qtIsBlueScreened)
+									dad404.playAnim('singUP' + altAnim, true);
+								else
+									dad.playAnim('singUP' + altAnim, true);
+							case 3:
+								if(qtIsBlueScreened)
+									dad404.playAnim('singRIGHT' + altAnim, true);
+								else
+									dad.playAnim('singRIGHT' + altAnim, true);
+							case 1:
+								if(qtIsBlueScreened)
+									dad404.playAnim('singDOWN' + altAnim, true);
+								else
+									dad.playAnim('singDOWN' + altAnim, true);
+							case 0:
+								if(qtIsBlueScreened)
+									dad404.playAnim('singLEFT' + altAnim, true);
+								else
+									dad.playAnim('singLEFT' + altAnim, true);
 					}
 
 					dadStrums.forEach(function(spr:FlxSprite)
@@ -4180,6 +4231,47 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(SONG.song.toLowerCase()=='expurgation'){
+			//Dodge code, yes it's bad but oh well. -Haz
+			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
+			//Haha Copy-paste LOL (although modified a bit) -Again lol
+			if(FlxG.keys.justPressed.SPACE)
+				trace('butttonpressed');
+
+			if(FlxG.keys.justPressed.SPACE && !bfDodging && bfCanDodge){
+				trace('DODGE START!');
+				bfDodging = true;
+				bfCanDodge = false;
+
+				if(qtIsBlueScreened)
+					boyfriend404.playAnim('dodge');
+				else
+					boyfriend.playAnim('dodge');
+
+				FlxG.sound.play(Paths.sound('dodge01'));
+
+				//Wait, then set bfDodging back to false. -Haz
+				//V1.2 - Timer lasts a bit longer (by 0.00225)
+				//new FlxTimer().start(0.22625, function(tmr:FlxTimer) 		//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				//new FlxTimer().start(0.2715, function(tmr:FlxTimer)			//UNCOMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				new FlxTimer().start(bfDodgeTiming, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				{
+					bfDodging=false;
+					boyfriend.dance(); //V1.3 = This forces the animation to end when you are no longer safe as the animation keeps misleading people.
+					trace('DODGE END!');
+					//Cooldown timer so you can't keep spamming it.
+					//V1.3 = Incremented this by a little (0.005)
+					//new FlxTimer().start(0.1135, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					//new FlxTimer().start(0.1135, function(tmr:FlxTimer) 		//UNCOMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					new FlxTimer().start(bfDodgeCooldown, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					{
+						bfCanDodge=true;
+						trace('DODGE RECHARGED!');//I've separated the dodge code from Censory-Superload so that the Bf animation lasts as long as it needs to last -DrkFon376
+					});
+				});
+			}
+		}
+
 		// control arrays, order L D U R
 		var holdArray:Array<Bool> = [control.LEFT, control.DOWN, control.UP, control.RIGHT];
 		var pressArray:Array<Bool> = [
@@ -4362,6 +4454,13 @@ class PlayState extends MusicBeatState
 			coolText.x = FlxG.width * 0.55;
 			misses++;
 			health -= 0.045;
+			if(PlayState.SONG.song.toLowerCase()=='expurgation'){
+				health -= 0.1025; //THAT'S ALOTA DAMAGE
+				interupt = true;
+				totalDamageTaken += 0.04;
+			}else{
+				health -= 0.05;
+			}
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
