@@ -21,4 +21,6 @@ Carefree:qt:7:#ff59ebff
 Careless:qt:7:#af009aff
 Censory-Overload:robot:7:#7b7b7bff
 Termination:robot:7:#7b7b7bff
+Extermination:robot:7:#7b7b7bff
 Cessation:qt-kb:7:#ff59ebff
+Expurgation:robot:7:#7b7b7bff
