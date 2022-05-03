@@ -3088,6 +3088,18 @@ class PlayState extends MusicBeatState
 					case 'senpai-angry':
 						camFollowY = dad.getMidpoint().y - 400;
 						camFollowX = dad.getMidpoint().x - 250;
+					case 'qt' | 'qt_annoyed':
+						camFollow.y = dad.getMidpoint().y + 261;
+					case 'qt_classic':
+						camFollow.y = dad.getMidpoint().y + 95;
+					case 'robot' | 'robot_404' | 'robot_angry' | 'robot_404-TERMINATION' | 'robot_classic' | 'robot_classic_404':
+						camFollow.y = dad.getMidpoint().y + 25;
+						camFollow.x = dad.getMidpoint().x - 18;
+					case 'qt-kb':
+						camFollow.y = dad.getMidpoint().y + 25;
+						camFollow.x = dad.getMidpoint().x - 18;
+					case 'qt-meme':
+						camFollow.y = dad.getMidpoint().y + 107;
 					case 'pico':
 						camFollowY = dad.getMidpoint().y;
 					default:
@@ -3329,6 +3341,11 @@ class PlayState extends MusicBeatState
 
 					var altAnim:String = "-alt";
 					
+						if(dad.curCharacter == "qt_annoyed" && FlxG.random.int(1, 17) == 2)
+						{
+							//Code for QT's random "glitch" alt animation to play.
+							altAnim = '-alt';
+							
 							//Probably a better way of doing this by using the random int and throwing that at the end of the string... but I'm stupid and lazy. -Haz
 							switch(FlxG.random.int(1, 3))
 							{
