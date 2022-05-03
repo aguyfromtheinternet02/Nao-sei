@@ -639,7 +639,7 @@ class PlayState extends MusicBeatState
 				add(qt_tv01);
 				qt_tv01.animation.play('idle');
 			}
-			case 'termination': //Seperated the two so terminate can load quicker (doesn't need to load in the attack animations and stuff)
+			case 'termination' | 'extermination': //Seperated the two so terminate can load quicker (doesn't need to load in the attack animations and stuff)
 			{
 				defaultCamZoom = 0.8125;
 				
@@ -1291,7 +1291,7 @@ class PlayState extends MusicBeatState
 			case 'streetFinal' | 'streetCute' | 'street' :
 				boyfriend.x += 40;
 				boyfriend.y += 65;
-				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+				if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase() == 'expurgation'){
 					dad.x -= 70;
 					dad.y += 66;
 					if(!Main.qtOptimisation){
@@ -1322,7 +1322,7 @@ class PlayState extends MusicBeatState
 			add(boyfriend404);
 		}
 		
-		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination'){
+		if(SONG.song.toLowerCase() == 'censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase() == 'expurgation'){
 			add(gf404);
 			add(boyfriend404);
 			add(dad404);
@@ -3323,8 +3323,8 @@ class PlayState extends MusicBeatState
 	//True state = Attack!
 	function KBATTACK(state:Bool = false, soundToPlay:String = 'attack'):Void
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "tutorial")){
-			trace("Sawblade Attack Error, cannot use Termination functions outside Termination or Tutorial.");
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation')){
+			trace("Sawblade Attack Error, cannot use Termination functions outside Termination, Extermination, Expurgation or Tutorial.");
 		}
 		trace("HE ATACC!");
 		if(state){
@@ -3354,8 +3354,8 @@ class PlayState extends MusicBeatState
 	}
 	function KBATTACK_ALERT(pointless:Bool = false):Void //For some reason, modchart doesn't like functions with no parameter? why? dunno.
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "tutorial")){
-			trace("Sawblade Alert Error, cannot use Termination functions outside Termination or Tutorial.");
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation')){
+			trace("Sawblade Alert Error, cannot use Termination functions outside Termination, Extermination, Expurgation or Tutorial.");
 		}
 		trace("DANGER!");
 		kb_attack_alert.animation.play('alert');
@@ -3365,8 +3365,8 @@ class PlayState extends MusicBeatState
 	//OLD ATTACK DOUBLE VARIATION
 	function KBATTACK_ALERTDOUBLE(pointless:Bool = false):Void
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "tutorial")){
-			trace("Sawblade AlertDOUBLE Error, cannot use Termination functions outside Termination or Tutorial.");
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial")){
+			trace("Sawblade AlertDOUBLE Error, cannot use Termination functions outside Termination, Extermination or Tutorial.");
 		}
 		trace("DANGER DOUBLE INCOMING!!");
 		kb_attack_alert.animation.play('alertDOUBLE');
@@ -3376,8 +3376,8 @@ class PlayState extends MusicBeatState
 	//Pincer logic, used by the modchart but can be hardcoded like saws if you want.
 	function KBPINCER_PREPARE(laneID:Int,goAway:Bool):Void
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "tutorial")){
-			trace("Pincer Error, cannot use Termination functions outside Termination or Tutorial.");
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial")){
+			trace("Pincer Error, cannot use Termination functions outside Termination, Extermination or Tutorial.");
 		}
 		else{
 			//1 = BF far left, 4 = BF far right. This only works for BF!
@@ -3495,8 +3495,8 @@ class PlayState extends MusicBeatState
 	}
 	function KBPINCER_GRAB(laneID:Int):Void
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "tutorial")){
-			trace("PincerGRAB Error, cannot use Termination functions outside Termination or Tutorial.");
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial")){
+			trace("PincerGRAB Error, cannot use Termination functions outside Termination, Extermination or Tutorial.");
 		}
 		else{
 			switch(laneID)
@@ -3815,7 +3815,7 @@ class PlayState extends MusicBeatState
 		var control = PlayerSettings.player1.controls;
 		
 		//Dodge code only works on termination and Tutorial -Haz
-		if(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase()=='tutorial'){
+		if(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase()=='tutorial' || SONG.song.toLowerCase() == 'extermination'){
 			//Dodge code, yes it's bad but oh well. -Haz
 			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
 
@@ -4482,6 +4482,535 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
 			}
 		}
+		//Midsong events for Termination (such as the sawblade attack)
+		else if (curSong.toLowerCase() == 'extermination'){
+				//For animating KB during the 404 section since he animates every half beat, not every beat.
+			if(qtIsBlueScreened)
+			{
+				//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
+				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+				{
+					dad404.dance();
+				}
+			}
+
+			//Making GF scared for error section
+			if(curStep>=2816 && curStep<3328 && curStep % 2 == 0)
+			{
+				gf.playAnim('scared', true);
+				if(!Main.qtOptimisation)
+					gf404.playAnim('scared', true);
+			}
+
+
+			switch (curStep)
+			{
+				//Commented out stuff are for the double sawblade variations.
+				//It is recommended to not uncomment them unless you know what you're doing. They are also not polished at all so don't complain about them if you do uncomment them.
+				
+				
+				//CONVERTED THE CUSTOM INTRO FROM MODCHART INTO HARDCODE OR WHATEVER! NO MORE INVISIBLE NOTES DUE TO NO MODCHART SUPPORT!
+				case 1:
+					qt_tv01.animation.play("instructions_ALT");
+					FlxTween.tween(strumLineNotes.members[0], {y: strumLineNotes.members[0].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[7], {y: strumLineNotes.members[7].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if(!Main.qtOptimisation){
+						boyfriend404.alpha = 0; 
+						dad404.alpha = 0;
+						gf404.alpha = 0;
+					}
+					if(!Main.qtOptimisation){
+						add(bgFlash);
+						bg_RedFlash_Longer(true);
+					}
+				case 32:
+					FlxTween.tween(strumLineNotes.members[1], {y: strumLineNotes.members[1].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[6], {y: strumLineNotes.members[6].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					
+					if(!Main.qtOptimisation){
+						bg_RedFlash_Longer(true);
+					}
+				case 48:
+					add(kb_attack_saw);
+					add(kb_attack_alert);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 52:
+					KBATTACK_ALERT();
+				case 56:
+					KBATTACK(true);
+				case 96:
+					qt_tv01.animation.play("gl");
+					FlxTween.tween(strumLineNotes.members[3], {y: strumLineNotes.members[3].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[4], {y: strumLineNotes.members[4].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical_Longer(true);
+					}
+				case 64:
+					FlxTween.tween(strumLineNotes.members[2], {y: strumLineNotes.members[2].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(strumLineNotes.members[5], {y: strumLineNotes.members[5].y + 10, alpha: 1}, 1.2, {ease: FlxEase.cubeOut});
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical_Longer(true);
+					}
+				case 112:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 116:
+					KBATTACK_ALERTDOUBLE();
+				case 120:
+					KBATTACK(true, "old/attack_alt01");
+					for (boi in strumLineNotes.members) { //FAIL SAFE TO ENSURE THAT ALL THE NOTES ARE VISIBLE WHEN PLAYING!!!!!
+						boi.alpha = 1;
+					}
+				case 123:
+					KBATTACK();
+				case 124:
+				    //FlxTween.tween(strumLineNotes.members[0], {alpha: 0}, 2, {ease: FlxEase.sineInOut}); //for testing outro code
+					KBATTACK(true, "old/attack_alt02");
+				case 128:
+					qt_tv01.animation.play("idle");
+				case 1280:
+					qt_tv01.animation.play("idle");
+				case 480:
+					qt_tv01.animation.play("watch");
+				case 516:
+					qt_tv01.animation.play("idle");
+
+				case 272 | 304 | 404 | 416 | 504 | 544 | 560 | 612 | 664 | 696 | 752 | 816 | 868 | 880 | 1088 | 1204 | 1344 | 1400 | 1428 | 1440 | 1472 | 1520 | 1584 | 1648 | 1680 | 1712 | 1744:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 276 | 308 | 408 | 420 | 508 | 548 | 564 | 616 | 668 | 700 | 756 | 820 | 872 | 884 | 1092 | 1208 | 1348 | 1404 | 1432 | 1444 | 1476 | 1524 | 1588 | 1652 | 1684 | 1716 | 1748: 
+					KBATTACK_ALERT();
+				case 280 | 312 | 412 | 424 | 512 | 552 | 568 | 620 | 672 | 704 | 760 | 824 | 876 | 888 | 1096 | 1212 | 1352 | 1408 | 1436 | 1448 | 1480 | 1528 | 1592 | 1656 | 1688 | 1720 | 1752:
+					KBATTACK(true);
+
+				case 1776 | 1904 | 2576 | 2596 | 2624 | 2640 | 2660 | 2704 | 2736 | 3072 | 3104 | 3136 | 3152 | 3168 | 3184 | 3216 | 3248 | 3312:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 1780 | 1908 | 2580 | 2600 | 2628 | 2644 | 2664 | 2708 | 2740 | 3076 | 3108 | 3140 | 3156 | 3172 | 3188 | 3220 | 3252 | 3316:
+					KBATTACK_ALERT();
+				case 1784 | 1912 | 2584 | 2604 | 2632 | 2648 | 2668 | 2712 | 2744 | 3080 | 3112 | 3144 | 3160 | 3176 | 3192 | 3224 | 3256 | 3320:
+					KBATTACK(true);
+
+				case 1808 | 1840 | 1872 | 1952 | 2000 | 2112 | 2148 | 2176 | 2192 | 2228 | 2240 | 2272 | 2768 | 2788 | 2800 | 2864 | 2916 | 2928 | 3032 | 3264 | 3280 | 3300:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 1812 | 1844 | 1876 | 1956 | 2004 | 2116 | 2152 | 2180 | 2196 | 2232 | 2244 | 2276 | 2772 | 2792 | 2804 | 2868 | 2920 | 2932 | 3036 | 3268 | 3284 | 3304:
+					KBATTACK_ALERT();
+				case 1816 | 1848 | 1880 | 1960 | 2008 | 2120 | 2156 | 2184 | 2200 | 2236 | 2248 | 2280 | 2776 | 2796 | 2872 | 2924 | 2936 | 3040 | 3272 | 3288 | 3308:
+					KBATTACK(true);
+
+                case 624 | 1136 | 2032 | 2608 | 2672 | 3084 | 3116 | 3696 | 4464:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 628 | 1140 | 2036 | 2612 | 2676 | 3088 | 3120 | 3700 | 4468:
+					KBATTACK_ALERTDOUBLE();
+				case 632 | 1144 | 2040 | 2616 | 2680 | 3092 | 3124 | 3704 | 4472:
+					KBATTACK(true, "old/attack_alt01");
+				case 635 | 1147 | 2043 | 2619 | 2683 | 3095 | 3127 | 3707 | 4151 | 4215 | 4347 | 4475:
+					KBATTACK();
+				case 636 | 1148 | 2044 | 2620 | 2684 | 3096 | 3128 | 3708 | 4476:
+					KBATTACK(true, "old/attack_alt02");
+				//Sawblades before bluescreen thing
+				//These were seperated for double sawblade experimentation if you're wondering.
+				//My god this organisation is so bad. Too bad!
+				//Yes, this is too bad! -DrkFon376
+				case 2304 | 2320 | 2340 | 2368 | 2384 | 2404 | 2496 | 2528:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2308 | 2324 | 2344 | 2372 | 2388 | 2408 | 2500 | 2532:
+					KBATTACK_ALERT();
+				case 2312 | 2328 | 2348 | 2376 | 2392 | 2412 | 2504 | 2536:
+					KBATTACK(true);
+
+				case 2352 | 2416:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2356 | 2420:
+					KBATTACK_ALERTDOUBLE();
+				case 2360 | 2424:
+					KBATTACK(true, "old/attack_alt01");
+				case 2363 | 2427:
+					KBATTACK();
+				case 2364 | 2428:
+					KBATTACK(true, "old/attack_alt02");
+
+				case 2560:
+					KBATTACK_ALERT();
+					KBATTACK();
+					qt_tv01.animation.play("eye");
+				case 2564:
+					KBATTACK_ALERT();
+				case 2568:
+					KBATTACK(true);
+				
+				case 2808:
+					//Change to glitch background
+					if(!Main.qtOptimisation){
+						streetBGerror.visible = true;
+						streetBG.visible = false;
+					}
+					FlxG.camera.shake(0.0075,0.675);
+					qt_tv01.animation.play("error");
+
+					KBATTACK(true);
+	
+				case 2816: //404 section
+					qt_tv01.animation.play("404");
+					gfSpeed = 1;
+					//Change to bluescreen background
+					if(!Main.qtOptimisation){
+						streetBG.visible = false;
+						streetBGerror.visible = false;
+						streetFrontError.visible = true;
+						qtIsBlueScreened = true;
+						CensoryOverload404();
+					}
+				case 3328: //Final drop
+					qt_tv01.animation.play("alert");
+					gfSpeed = 1;
+					//Revert back to normal
+					if(!Main.qtOptimisation){
+						streetBG.visible = true;
+						streetFrontError.visible = false;
+						qtIsBlueScreened = false;
+						CensoryOverload404();
+					}
+				case 3840 | 3844 | 3848 | 3852 | 3856 | 3860 | 3864 | 3868 | 3884 | 3900 | 3904 | 3908 | 3912 | 3916 | 3920 | 3948 | 3964 | 3968 | 3972 | 3976 | 3980 | 3996 | 4000 | 4004 | 4008 | 4012 | 4016 | 4044 | 4048 | 4052 | 4056 | 4060 | 4088 | 4092:
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3872 | 3888 | 3924 | 3936 | 3952 | 3984 | 4020 | 4032 | 4064 | 4076:
+					KBATTACK_ALERT();
+					KBATTACK();
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3876 | 3892 | 3928 | 3940 | 3956 | 3988 | 4024 | 4036 | 4068 | 4080:
+					KBATTACK_ALERT();
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 3880 | 3896 | 3932 | 3944 | 3960 | 3992 | 4028 | 4040 | 4072 | 4084:
+					KBATTACK(true);
+					if (!Main.qtOptimisation){
+						bg_RedFlash(true);
+					}
+				case 4120 | 4124 | 4156 | 4172 | 4188 | 4220 | 4236 | 4240 | 4244 | 4248 | 4252 | 4280 | 4284 | 4300 | 4304 | 4308 | 4312 | 4316 | 4320:
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4096 | 4108 | 4128 | 4140 | 4160 | 4176 | 4192 | 4204 | 4224 | 4256 | 4268 | 4288 | 4324 | 4336:
+					KBATTACK_ALERT();
+					KBATTACK();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4100 | 4112 | 4132 | 4164 | 4180 | 4196 | 4228 | 4260 | 4272 | 4292 | 4328:
+					KBATTACK_ALERT();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4144 | 4208 | 4340: 
+					KBATTACK_ALERTDOUBLE();
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4104 | 4116 | 4136 | 4168 | 4184 | 4200 | 4232 | 4264 | 4276 | 4296 | 4332:
+					KBATTACK(true);
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4148 | 4212 | 4344:
+					KBATTACK(true, "old/attack_alt01");
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 4152 | 4216 | 4348:
+					KBATTACK(true, "old/attack_alt02");
+					if (!Main.qtOptimisation){
+						bg_RedFlash_Critical(true);
+					}
+				case 3360 | 3376 | 3396 | 3408 | 3424 | 3440 | 3504 | 3552 | 3576 | 3616 | 3636 | 3648 | 3664 | 3680 | 3776 | 3808 | 3824:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 3364 | 3380 | 3400 | 3412 | 3428 | 3444 | 3508 | 3556 | 3580 | 3620 | 3640 | 3652 | 3668 | 3684 | 3780 | 3812 | 3828:
+					KBATTACK_ALERT();
+				case 3368 | 3384 | 3404 | 3416 | 3432 | 3448 | 3512 | 3560 | 3584 | 3624 | 3644 | 3656 | 3672 | 3688 | 3784 | 3816 | 3832:
+					KBATTACK(true);
+
+				case 4368 | 4400 | 4432 | 4496 | 4528 | 4560 | 4592 | 4688:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 4372 | 4404 | 4436 | 4500 | 4532 | 4564 | 4596 | 4692:
+					KBATTACK_ALERT();
+				case 4376 | 4408 | 4440 | 4504 | 4536 | 4568 | 4600 | 4696://<----LMFAO this is the last sawblade placed on the last beat of the level. Funny, right? 
+					KBATTACK(true);
+								
+				case 4352: //Custom outro hardcoded instead of being part of the modchart! 
+					qt_tv01.animation.play("idle");
+					FlxTween.tween(strumLineNotes.members[2], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4384:
+					FlxTween.tween(strumLineNotes.members[3], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4416:
+					FlxTween.tween(strumLineNotes.members[0], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4448:
+					FlxTween.tween(strumLineNotes.members[1], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+
+				case 4480:
+					FlxTween.tween(strumLineNotes.members[6], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4512:
+					FlxTween.tween(strumLineNotes.members[7], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4544:
+					FlxTween.tween(strumLineNotes.members[4], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+				case 4576:
+					FlxTween.tween(strumLineNotes.members[5], {alpha: 0}, 1.1, {ease: FlxEase.sineInOut});
+			}		
+		}
+		else if (curSong.toLowerCase() == 'expurgation' && curStep != stepOfLast){
+			//For animating KB during the 404 section since he animates every half beat, not every beat.
+			if(qtIsBlueScreened)
+				{
+					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+					{
+						dad404.dance();
+					}
+				}
+			//Making GF scared for error section
+			if(curStep>=2144 && curStep<2656 && curStep % 2 == 0)
+				{
+					gf.playAnim('scared', true);
+					if(!Main.qtOptimisation)
+						gf404.playAnim('scared', true);
+				}
+			switch (curStep)
+			{
+				case 1:
+					qt_tv01.animation.play("instructions");
+					if(!Main.qtOptimisation){
+						boyfriend404.alpha = 0; 
+						dad404.alpha = 0;
+						gf404.alpha = 0;
+					}
+				case 64:
+					qt_tv01.animation.play("gl");
+					add(kb_attack_saw);
+					add(kb_attack_alert);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 68:
+					KBATTACK_ALERT();
+				case 72:
+					KBATTACK(true);
+				case 96:
+					qt_tv01.animation.play("idle");
+				/*case 128:
+					//Experimental stuff
+					qt_tv01.animation.play("404");
+						if(!Main.qtOptimisation){
+							streetBG.visible = false;
+							streetBGerror.visible = false;
+							streetFrontError.visible = true;
+							qtIsBlueScreened = true;
+							sign.animation.play('bluescreen');
+							CensoryOverload404();
+						}*/
+				case 448:
+					qt_tv01.animation.play("eye");
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 352 | 368 | 484 | 496 | 560 | 644 | 712 | 728 | 768 | 816 | 896 | 928 | 944 | 1156 | 1168 | 1248 | 1264 | 1284 | 1296 | 1344 | 1392 | 1412 | 1424 | 1536 | 1552 | 1616 | 1744 | 1808 | 1872 | 1920 | 1972 | 1984 | 2052 | 2064:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 356 | 372 | 452 | 488 | 500 | 564 | 612 | 648 | 716 | 732 | 772 | 820 | 900 | 932 | 948 | 1160 | 1172 | 1252 | 1268 | 1288 | 1300 | 1348 | 1396 | 1416 | 1428 | 1540 | 1556 | 1588 | 1620 | 1748 | 1812 | 1876 | 1924 | 1976 | 1988 | 2020 | 2056 | 2068:
+					KBATTACK_ALERT();
+				case 360 | 376 | 456 | 492 | 504 | 568 | 616 | 652 | 736 | 776 | 824 | 904 | 936 | 952 | 1164 | 1176 | 1256 | 1272 | 1292 | 1304 | 1352 | 1400 | 1420 | 1432 | 1544 | 1560 | 1592 | 1624 | 1752 | 1816 | 1880 | 1928 | 1980 | 1992 | 2024 | 2060 | 2072:
+					KBATTACK(true);
+				case 384:
+					doStopSign(0);
+				case 511:
+					doStopSign(2);
+					doStopSign(0);
+				case 576:
+					qt_tv01.animation.play("sus");//That's kinda sussy
+				case 608:
+					qt_tv01.animation.play("idle");
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 610:
+					doStopSign(3);
+				case 720:
+					doStopSign(2);
+					KBATTACK(true);
+				case 991:
+					doStopSign(3);
+				case 1120:
+					qt_tv01.animation.play("idle");
+				case 1184:
+					doStopSign(2);
+				case 1218:
+					doStopSign(0);
+				case 1235:
+					doStopSign(0, true);
+				case 1200:
+					doStopSign(3);
+				case 1328:
+					doStopSign(0, true);
+					doStopSign(2);
+				case 1376:
+					qt_tv01.animation.play("eye");
+				case 1439:
+					doStopSign(3, true);
+				case 1567:
+					doStopSign(0);
+				case 1584:
+					doStopSign(0, true);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 1600:
+					doStopSign(2);
+				case 1632:
+					qt_tv01.animation.play("idle");
+				case 1706:
+					doStopSign(3);
+				case 1888:
+					qt_tv01.animation.play("eye");
+				case 1917:
+					doStopSign(0);
+				case 1923:
+					doStopSign(0, true);
+				case 1927:
+					doStopSign(0);
+				case 1932:
+					doStopSign(0, true);
+				case 2016:
+					qt_tv01.animation.play("idle");
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2032:
+					doStopSign(2);
+					doStopSign(0);
+				case 2036:
+					doStopSign(0, true);
+				case 2096:
+					defaultCamZoom = 0.75;
+				case 2098:
+					defaultCamZoom = 0.775;
+				case 2100:
+					defaultCamZoom = 0.8;
+				case 2102:
+					defaultCamZoom = 0.825;
+				case 2104:
+					defaultCamZoom = 0.85;
+				case 2106:
+					defaultCamZoom = 0.875;
+				case 2108:
+					defaultCamZoom = 0.9;
+				case 2110:
+					defaultCamZoom = 0.925;
+				case 2112:
+					defaultCamZoom = 0.95;
+				case 2114:
+					defaultCamZoom = 0.975;
+				case 2116:
+					defaultCamZoom = 1.0;
+				case 2118:
+					defaultCamZoom = 1.025;
+				case 2120:
+					defaultCamZoom = 1.05;
+				case 2122:
+					defaultCamZoom = 1.075;
+				case 2124:
+					defaultCamZoom = 1.1;
+				case 2126:
+					defaultCamZoom = 1.125;
+				case 2128:
+					defaultCamZoom = 0.725;
+					if(!Main.qtOptimisation){
+						streetBGerror.visible = true;
+						streetBG.visible = false;
+					}
+					FlxG.camera.shake(0.02,1.05);
+					qt_tv01.animation.play("error");
+				case 2144:
+					qt_tv01.animation.play("404");
+						if(!Main.qtOptimisation){
+							streetBG.visible = false;
+							streetBGerror.visible = false;
+							streetFrontError.visible = true;
+							qtIsBlueScreened = true;
+							sign.animation.play('bluescreen');
+							CensoryOverload404();
+						}
+				//Sawblades during and after the bluescreen.
+				case 2208 | 2264 | 2288 | 2340 | 2352 | 2400 | 2436 | 2464 | 2500 | 2580 | 2592 | 2624 | 2640 | 2672 | 2724 | 2736 | 2784 | 2796 | 2832 | 2848 | 2868 | 2880 | 2896:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2212 | 2268 | 2292 | 2344 | 2356 | 2404 | 2440 | 2468 | 2504 | 2516 | 2548 | 2584 | 2596 | 2628 | 2644 | 2676 | 2728 | 2740 | 2788 | 2800 | 2836 | 2852 | 2872 | 2884 | 2900:
+					KBATTACK_ALERT();
+				case 2216 | 2272 | 2296 | 2348 | 2360 | 2408 | 2444 | 2472 | 2508 | 2520 | 2552 | 2588 | 2600 | 2632 | 2648 | 2680 | 2732 | 2744 | 2792 | 2804 | 2840 | 2856 | 2876 | 2888 | 2904:
+					KBATTACK(true);
+				case 2162:
+					doStopSign(2);
+					doStopSign(3);
+				case 2193:
+					doStopSign(0);
+				case 2202:
+					doStopSign(0,true);
+				case 2239:
+					doStopSign(2,true);
+				case 2258:
+					doStopSign(0, true);
+				case 2304:
+					doStopSign(0, true);
+					doStopSign(0);	
+				case 2326:
+					doStopSign(0, true);
+				case 2336:
+					doStopSign(3);
+				case 2447:
+					doStopSign(2);
+					doStopSign(0, true);
+					doStopSign(0);	
+				case 2480:
+					doStopSign(0, true);
+					doStopSign(0);	
+				case 2512:
+					doStopSign(2);
+					doStopSign(0, true);
+					doStopSign(0);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2544:
+					doStopSign(0, true);
+					doStopSign(0);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 2575:
+					doStopSign(2);
+					doStopSign(0, true);
+					doStopSign(0);
+				case 2608:
+					doStopSign(0, true);
+					doStopSign(0);	
+				case 2604:
+					doStopSign(0, true);
+				case 2655:
+					doGremlin(20,13,true);
+				case 2656:
+					qt_tv01.animation.play("idle");
+					gfSpeed = 1;
+					//Revert back to normal
+					if(!Main.qtOptimisation){
+						streetBG.visible = true;
+						streetFrontError.visible = false;
+						qtIsBlueScreened = false;
+						sign.animation.play('normal');
+						CensoryOverload404();			
+					}
+			}
+			stepOfLast = curStep;
+		}
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
@@ -4718,7 +5247,7 @@ class PlayState extends MusicBeatState
 				qt_gas02.animation.play('burst');}
 			
 		}
-		else if(SONG.song.toLowerCase() == "termination"){
+		else if(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination"){
 			if(curBeat >= 192 && curBeat <= 320) //1st drop
 			{
 				if(camZooming && FlxG.camera.zoom < 1.35)
@@ -4821,13 +5350,23 @@ class PlayState extends MusicBeatState
 
 			//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
 			if(curStage!="nightmare"){ //No idea why this line causes a crash on REDACTED so erm... fuck you.
-				if(!(SONG.song.toLowerCase() == "termination")){
+				if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination")){
 					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing"))
 					{
 						dad404.dance();
 					}
 				}
 			}
+		}
+		else if (curSong.toLowerCase() == 'expurgation'){
+			if(qtIsBlueScreened)
+				{
+					//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
+					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+					{
+						dad404.dance();
+					}
+				}
 		}
 
 		
