@@ -5111,6 +5111,158 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText + " " + SONG.song + " (" + storyDifficultyText + ") ", "Misses:" + misses + " | " + "Score:" + songScore + " | " + "KPS:" + kps + "(" + kpsMax + ")" + " | " + "Accuracy:" + totalAccuracy + "%" + " | " + "Rank:" + totalRank, iconRPC,true,  songLength - Conductor.songPosition);
 		#end
 	}
+	
+	var totalDamageTaken:Float = 0;
+
+	var shouldBeDead:Bool = false;
+
+	var interupt = false;
+	
+	function doGremlin(hpToTake:Int, duration:Int,persist:Bool = false)
+	{
+		interupt = false;
+	
+		grabbed = true;
+			
+		totalDamageTaken = 0;
+	
+		var gramlan:FlxSprite = new FlxSprite(0,0);
+	
+		gramlan.frames = Paths.getSparrowAtlas('HP GREMLIN');
+	
+		gramlan.setGraphicSize(Std.int(gramlan.width * 0.76));
+	
+		gramlan.cameras = [camHUD];
+	
+		gramlan.x = iconP1.x;
+		gramlan.y = healthBarBG.y - 325;
+	
+		gramlan.animation.addByIndices('come','HP Gremlin ANIMATION',[0,1], "", 24, false);
+		gramlan.animation.addByIndices('grab','HP Gremlin ANIMATION',[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], "", 24, false);
+		gramlan.animation.addByIndices('hold','HP Gremlin ANIMATION',[25,26,27,28],"",24);
+		gramlan.animation.addByIndices('release','HP Gremlin ANIMATION',[29,30,31,32,33],"",24,false);
+	
+		gramlan.antialiasing = true;
+	
+		add(gramlan);
+	
+		if(FlxG.save.data.downscroll){
+			gramlan.flipY = true;
+			gramlan.y -= 150;
+		}
+			
+		// over use of flxtween :)
+	
+		var startHealth = health;
+		var toHealth = (hpToTake / 100) * startHealth; // simple math, convert it to a percentage then get the percentage of the health
+	
+		var perct = toHealth / 2 * 100;
+	
+		trace('start: $startHealth\nto: $toHealth\nwhich is prect: $perct');
+	
+		var onc:Bool = false;
+	
+		FlxG.sound.play(Paths.sound('GremlinWoosh'));
+	
+		gramlan.animation.play('come');
+		new FlxTimer().start(0.14, function(tmr:FlxTimer) {
+			gramlan.animation.play('grab');
+			FlxTween.tween(gramlan,{x: iconP1.x - 140},1,{ease: FlxEase.elasticIn, onComplete: function(tween:FlxTween) {
+				trace('I got em');
+				gramlan.animation.play('hold');
+				FlxTween.tween(gramlan,{
+					x: (healthBar.x + 
+					(healthBar.width * (FlxMath.remapToRange(perct, 0, 100, 100, 0) * 0.01) 
+					- 26)) - 75}, duration,
+				{
+					onUpdate: function(tween:FlxTween) { 
+						// lerp the health so it looks pog
+						if (interupt && !onc && !persist)
+						{
+							onc = true;
+							trace('oh shit');
+							gramlan.animation.play('release');
+							gramlan.animation.finishCallback = function(pog:String) { gramlan.alpha = 0;}
+						}
+						else if (!interupt || persist)
+						{
+							var pp = FlxMath.lerp(startHealth,toHealth, tween.percent);
+							if (pp <= 0)
+								pp = 0.1;
+							health = pp;
+						}
+
+						if (shouldBeDead)
+							health = 0;
+					},
+					onComplete: function(tween:FlxTween)
+					{
+						if (interupt && !persist)
+						{
+							remove(gramlan);
+							grabbed = false;
+						}
+						else
+						{
+							trace('oh shit');
+							gramlan.animation.play('release');
+							if (persist && totalDamageTaken >= 0.7)
+								health -= totalDamageTaken; // just a simple if you take a lot of damage wtih this, you'll loose probably.
+							gramlan.animation.finishCallback = function(pog:String) { remove(gramlan);}
+							grabbed = false;
+						}
+					}
+				});
+			}});
+		});
+	}
+
+	function doStopSign(sign:Int = 0, fuck:Bool = false)
+		{
+			trace('sign ' + sign);
+			var daSign:FlxSprite = new FlxSprite(0,0);
+			// CachedFrames.cachedInstance.get('sign')
+	
+			daSign.frames = Paths.getSparrowAtlas('Sign_Post_Mechanic', 'preload');
+	
+			daSign.setGraphicSize(Std.int(daSign.width * 0.67));
+	
+			daSign.cameras = [camHUD];
+	
+			switch(sign)
+			{
+				case 0:
+					daSign.animation.addByPrefix('sign','Signature Stop Sign 1',24, false);
+					daSign.x = FlxG.width - 650;
+					daSign.angle = -90;
+					daSign.y = -300;
+				case 1:
+					/*daSign.animation.addByPrefix('sign','Signature Stop Sign 2',20, false);
+					daSign.x = FlxG.width - 670;
+					daSign.angle = -90;*/ // this one just doesn't work???
+				case 2:
+					daSign.animation.addByPrefix('sign','Signature Stop Sign 3',24, false);
+					daSign.x = FlxG.width - 780;
+					daSign.angle = -90;
+					if (FlxG.save.data.downscroll)
+						daSign.y = -395;
+					else
+						daSign.y = -980;
+				case 3:
+					daSign.animation.addByPrefix('sign','Signature Stop Sign 4',24, false);
+					daSign.x = FlxG.width - 1070;
+					daSign.angle = -90;
+					daSign.y = -145;
+			}
+			add(daSign);
+			daSign.flipX = fuck;
+			daSign.animation.play('sign');
+			daSign.animation.finishCallback = function(pog:String)
+				{
+					trace('ended sign');
+					remove(daSign);
+				}
+		}
 
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
