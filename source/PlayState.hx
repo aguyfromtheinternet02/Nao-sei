@@ -192,6 +192,9 @@ class PlayState extends MusicBeatState
 	var kb_attack_saw:FlxSprite;
 	var bgFlash:FlxSprite;
 	var kb_attack_alert:FlxSprite;
+	var daSign:FlxSprite;
+	var gramlan:FlxSprite;
+	var sign:FlxSprite;
 	var pincer1:FlxSprite;
 	var pincer2:FlxSprite;
 	var pincer3:FlxSprite;
@@ -1984,6 +1987,8 @@ class PlayState extends MusicBeatState
 			swagCounter += 1;
 		}, 5);
 	}
+	
+	var grabbed = false;
 
 	var previousFrameTime:Int = 0;
 	var lastReportedPlayheadPosition:Int = 0;
