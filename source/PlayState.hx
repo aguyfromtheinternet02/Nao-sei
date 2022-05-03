@@ -190,6 +190,7 @@ class PlayState extends MusicBeatState
 	var bfDodgeTiming:Float = 0.22625;
 	var bfDodgeCooldown:Float = 0.1135;
 	var kb_attack_saw:FlxSprite;
+	var bgFlash:FlxSprite;
 	var kb_attack_alert:FlxSprite;
 	var pincer1:FlxSprite;
 	var pincer2:FlxSprite;
@@ -3352,6 +3353,26 @@ class PlayState extends MusicBeatState
 			kb_attack_saw.offset.set(-333,0);
 		}
 	}
+	function bg_RedFlash(pointless:Bool = false):Void
+		{
+			trace("BEWARE");
+			bgFlash.animation.play('bg_Flash_Normal');
+		}
+	function bg_RedFlash_Critical(pointless:Bool = false):Void
+		{
+			trace("BEWARE, HE'S FUCKING CRAZY!!");
+			bgFlash.animation.play('bg_Flash_Critical');
+		}
+	function bg_RedFlash_Longer(pointless:Bool = false):Void
+		{
+			trace("WARNING");
+			bgFlash.animation.play('bg_Flash_Long');
+		}
+	function bg_RedFlash_Critical_Longer(pointless:Bool = false):Void
+		{
+			trace("STARTING");
+			bgFlash.animation.play('bg_Flash_Critical_Long');
+		}
 	function KBATTACK_ALERT(pointless:Bool = false):Void //For some reason, modchart doesn't like functions with no parameter? why? dunno.
 	{
 		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation')){
@@ -4268,6 +4289,8 @@ class PlayState extends MusicBeatState
 		boyfriend.playAnim('spinMic', true);
 	}
 
+	var stepOfLast = 0;
+	
 	override function stepHit()
 	{
 		super.stepHit();
