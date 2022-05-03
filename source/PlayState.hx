@@ -732,7 +732,7 @@ class PlayState extends MusicBeatState
 
 				//Alert!
 				kb_attack_alert = new FlxSprite();
-				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW', 'qt');
+				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW');
 				kb_attack_alert.animation.addByPrefix('alert', 'kb_attack_animation_alert-single', 24, false);	
 				kb_attack_alert.animation.addByPrefix('alertDOUBLE', 'kb_attack_animation_alert-double', 24, false);	
 				kb_attack_alert.antialiasing = true;
@@ -744,7 +744,7 @@ class PlayState extends MusicBeatState
 
 				//Saw that one coming!
 				kb_attack_saw = new FlxSprite();
-				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6', 'qt');
+				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6');
 				kb_attack_saw.animation.addByPrefix('fire', 'kb_attack_animation_fire', 24, false);	
 				kb_attack_saw.animation.addByPrefix('prepare', 'kb_attack_animation_prepare', 24, false);	
 				kb_attack_saw.setGraphicSize(Std.int(kb_attack_saw.width * 1.15));
@@ -752,19 +752,19 @@ class PlayState extends MusicBeatState
 				kb_attack_saw.setPosition(-860,615);
 
 				//Pincer shit for moving notes around for a little bit of trollin'
-				pincer1 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer1 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer1.antialiasing = true;
 				pincer1.scrollFactor.set();
 				
-				pincer2 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer2 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer2.antialiasing = true;
 				pincer2.scrollFactor.set();
 				
-				pincer3 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer3 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer3.antialiasing = true;
 				pincer3.scrollFactor.set();
 
-				pincer4 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer4 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer4.antialiasing = true;
 				pincer4.scrollFactor.set();
 				
@@ -900,8 +900,8 @@ class PlayState extends MusicBeatState
 				}
 
 				if(!Main.qtOptimisation){
-					bgFlash = new FlxSprite(-820, 710).loadGraphic(Paths.image('bonus/bgFlash', 'qt'));
-					bgFlash.frames = Paths.getSparrowAtlas('bonus/bgFlash', 'qt');
+					bgFlash = new FlxSprite(-820, 710).loadGraphic(Paths.image('bonus/bgFlash'));
+					bgFlash.frames = Paths.getSparrowAtlas('bonus/bgFlash');
 					bgFlash.animation.addByPrefix('bg_Flash_Normal', 'bg_Flash', 24, false);
 					bgFlash.animation.addByPrefix('bg_Flash_Long', 'bgFlash_Long', 24, false);
 					bgFlash.animation.addByPrefix('bg_Flash_Critical', 'bgFlash_Critical_perBeat', 24, false);
@@ -914,7 +914,7 @@ class PlayState extends MusicBeatState
 
 				//Alert!
 				kb_attack_alert = new FlxSprite();
-				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW_with_EXTRAS', 'qt');
+				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW_with_EXTRAS');
 				kb_attack_alert.animation.addByPrefix('alert', 'kb_attack_animation_alert-single', 24, false);	
 				kb_attack_alert.animation.addByPrefix('alertDOUBLE', 'kb_attack_animation_alert-double', 24, false);	
 				kb_attack_alert.antialiasing = true;
@@ -926,7 +926,7 @@ class PlayState extends MusicBeatState
 
 				//Saw that one coming!
 				kb_attack_saw = new FlxSprite();
-				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6', 'qt');
+				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6');
 				kb_attack_saw.animation.addByPrefix('fire', 'kb_attack_animation_fire', 24, false);	
 				kb_attack_saw.animation.addByPrefix('prepare', 'kb_attack_animation_prepare', 24, false);	
 				kb_attack_saw.setGraphicSize(Std.int(kb_attack_saw.width * 1.15));
@@ -934,19 +934,19 @@ class PlayState extends MusicBeatState
 				kb_attack_saw.setPosition(-860,615);
 
 				//Pincer shit for moving notes around for a little bit of trollin'
-				pincer1 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer1 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer1.antialiasing = true;
 				pincer1.scrollFactor.set();
 				
-				pincer2 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer2 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer2.antialiasing = true;
 				pincer2.scrollFactor.set();
 				
-				pincer3 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer3 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer3.antialiasing = true;
 				pincer3.scrollFactor.set();
 
-				pincer4 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close', 'qt'));
+				pincer4 = new FlxSprite(0, 0).loadGraphic(Paths.image('bonus/pincer-close'));
 				pincer4.antialiasing = true;
 				pincer4.scrollFactor.set();
 				
@@ -1042,7 +1042,7 @@ class PlayState extends MusicBeatState
 				qt_tv01.animation.play('idle');
 
 				sign = new FlxSprite();
-				sign.frames = Paths.getSparrowAtlas('bonus/Sign', 'qt');
+				sign.frames = Paths.getSparrowAtlas('bonus/Sign');
 				sign.animation.addByPrefix('normal', 'Sign_Static', 24, true);
 				sign.animation.addByPrefix('bluescreen', 'Sign_on_Bluescreen', 24, true);
 				sign.antialiasing = true;
@@ -1074,7 +1074,7 @@ class PlayState extends MusicBeatState
 
 				//Alert!
 				kb_attack_alert = new FlxSprite();
-				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW_with_EXTRAS', 'qt');
+				kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW_with_EXTRAS');
 				kb_attack_alert.animation.addByPrefix('alert', 'kb_attack_animation_alert-single', 24, false);	
 				kb_attack_alert.animation.addByPrefix('alertDOUBLE', 'kb_attack_animation_alert-double', 24, false);	
 				kb_attack_alert.antialiasing = true;
@@ -1086,7 +1086,7 @@ class PlayState extends MusicBeatState
 
 				//Saw that one coming!
 				kb_attack_saw = new FlxSprite();
-				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6', 'qt');
+				kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6');
 				kb_attack_saw.animation.addByPrefix('fire', 'kb_attack_animation_fire', 24, false);	
 				kb_attack_saw.animation.addByPrefix('prepare', 'kb_attack_animation_prepare', 24, false);	
 				kb_attack_saw.setGraphicSize(Std.int(kb_attack_saw.width * 1.15));
