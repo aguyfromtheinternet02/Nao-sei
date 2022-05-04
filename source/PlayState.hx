@@ -5760,7 +5760,7 @@ class PlayState extends MusicBeatState
 	{
 		super.beatHit();
 		
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
+			/*if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
 				if(SONG.song.toLowerCase() == "cessation"){
 					if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 					{
@@ -5773,7 +5773,7 @@ class PlayState extends MusicBeatState
 					dad.dance();
 			}
 
-		}
+		}*/
 
 		// Copy and pasted the milf code above for censory overload -Haz
 		if (curSong.toLowerCase() == 'censory-overload')
@@ -5920,7 +5920,7 @@ class PlayState extends MusicBeatState
 		{
 			if (!(SONG.notes[Math.floor(curStep / 16)].mustHitSection) && !dad.animation.curAnim.name.startsWith("sing"))
 			{
-				if(!qtIsBlueScreened && !qtCarelessFin)
+				/*if(!qtIsBlueScreened && !qtCarelessFin)
 					if(SONG.song.toLowerCase() == "cessation"){
 						if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 						{
@@ -5932,7 +5932,7 @@ class PlayState extends MusicBeatState
 					else
 						dad.dance();
 			}
-		}
+		}*/
 
 		//Same as above, but for 404 variants.
 		if(qtIsBlueScreened)
