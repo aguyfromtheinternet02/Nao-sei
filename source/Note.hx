@@ -244,6 +244,15 @@ class Note extends FlxSprite
 			else
 				canBeHit = false;
 
+			if (noteType == 2)
+				{
+					if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 0.4)
+						&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.25)) // also they're almost impossible to hit late!
+						canBeHit = true;
+					else
+						canBeHit = false;
+				}
+
 			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
 				tooLate = true;
 
