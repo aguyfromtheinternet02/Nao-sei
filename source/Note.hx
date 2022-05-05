@@ -124,43 +124,6 @@ class Note extends FlxSprite
 					antialiasing = true;
 				}
 
-			switch(noteType)
-						{
-							case 2:
-							{
-								frames = Paths.getSparrowAtlas('ALL_deathnotes');
-								animation.addByPrefix('greenScroll', 'Green Arrow');
-								animation.addByPrefix('redScroll', 'Red Arrow');
-								animation.addByPrefix('blueScroll', 'Blue Arrow');
-								animation.addByPrefix('purpleScroll', 'Purple Arrow');
-														 
-								setGraphicSize(Std.int(width * 0.7));
-								updateHitbox();
-								antialiasing = true;
-							}
-							default:
-							{
-								frames = Paths.getSparrowAtlas('NOTE_assets');
-								animation.addByPrefix('greenScroll', 'green0');
-								animation.addByPrefix('redScroll', 'red0');
-								animation.addByPrefix('blueScroll', 'blue0');
-								animation.addByPrefix('purpleScroll', 'purple0');
- 
-								animation.addByPrefix('purpleholdend', 'pruple end hold');
-								animation.addByPrefix('greenholdend', 'green hold end');
-								animation.addByPrefix('redholdend', 'red hold end');
-								animation.addByPrefix('blueholdend', 'blue hold end');
- 
-								animation.addByPrefix('purplehold', 'purple hold piece');
-								animation.addByPrefix('greenhold', 'green hold piece');
-								animation.addByPrefix('redhold', 'red hold piece');
-								animation.addByPrefix('bluehold', 'blue hold piece');
- 
-								setGraphicSize(Std.int(width * 0.7));
-								updateHitbox();
-								antialiasing = true;
-							}
-						}
 
 		}
 
@@ -244,14 +207,6 @@ class Note extends FlxSprite
 			else
 				canBeHit = false;
 
-			if (noteType == 2)
-				{
-					if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 0.4)
-						&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.25)) // also they're almost impossible to hit late!
-						canBeHit = true;
-					else
-						canBeHit = false;
-				}
 
 			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
 				tooLate = true;
