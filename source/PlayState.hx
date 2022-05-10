@@ -3557,7 +3557,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
+			if (SONG.song.toLowerCase() == 'freakyMenu') //if placed at top cuz this should execute regardless of story mode. -Haz
 			{
 				camZooming = false;
 				paused = true;
@@ -3603,11 +3603,6 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				
-
-
-
-
 				var difficulty:String = "";
 
 				if (storyDifficulty == 0)
@@ -4031,10 +4026,6 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new StoryMenuState());
 
-  }
-  }
-  }
-  }
   }
   }
 	private function popUpScore(strumtime:Float, note:Note):Void
