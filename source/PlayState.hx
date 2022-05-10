@@ -3554,9 +3554,38 @@ class PlayState extends MusicBeatState
 			if (storyPlaylist.length <= 0)
 			{
 				FlxG.sound.playMusic(Paths.music('qtMenu'));
+		}
+		else
+		{
+			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
+			{
+				camZooming = false;
+				paused = true;
+				qtCarelessFin = true;
+				FlxG.sound.music.pause();
+				vocals.pause();
+				//Conductor.songPosition = 0;
+				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
+				doof.scrollFactor.set();
+				doof.finishThing = endScreenHazard;
+				camHUD.visible = false;
+				schoolIntro(doof);
+			}
+			else if (isStoryMode)
+			{
+				campaignScore += Math.round(songScore);
 
-				transIn = FlxTransitionableState.defaultTransIn;
-				transOut = FlxTransitionableState.defaultTransOut;
+				storyPlaylist.remove(storyPlaylist[0]);
+
+				if(!(SONG.song.toLowerCase() == 'terminate')){
+
+					if (storyPlaylist.length <= 0)
+					{
+						FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+						transIn = FlxTransitionableState.defaultTransIn;
+						transOut = FlxTransitionableState.defaultTransOut;
+				
 
 				FlxG.switchState(new StoryMenuState());
 
@@ -5760,7 +5789,8 @@ class PlayState extends MusicBeatState
 	{
 		super.beatHit();
 		
-			/*if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
+			// Dad doesnt interupt his own notes
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !qtCarelessFin){
 				if(SONG.song.toLowerCase() == "cessation"){
 					if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 					{
@@ -5773,7 +5803,16 @@ class PlayState extends MusicBeatState
 					dad.dance();
 			}
 
-		}*/
+		}
+		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
+		wiggleShit.update(Conductor.crochet);
+
+		// HARDCODING FOR MILF ZOOMS!
+		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
+		{
+			FlxG.camera.zoom += 0.015;
+			camHUD.zoom += 0.03;
+		}
 
 		// Copy and pasted the milf code above for censory overload -Haz
 		if (curSong.toLowerCase() == 'censory-overload')
@@ -5920,7 +5959,7 @@ class PlayState extends MusicBeatState
 		{
 			if (!(SONG.notes[Math.floor(curStep / 16)].mustHitSection) && !dad.animation.curAnim.name.startsWith("sing"))
 			{
-				/*if(!qtIsBlueScreened && !qtCarelessFin)
+				if(!qtIsBlueScreened && !qtCarelessFin)
 					if(SONG.song.toLowerCase() == "cessation"){
 						if((curStep >= 640 && curStep <= 794) || (curStep >= 1040 && curStep <= 1199))
 						{
@@ -5932,7 +5971,7 @@ class PlayState extends MusicBeatState
 					else
 						dad.dance();
 			}
-		}*/
+		}
 
 		//Same as above, but for 404 variants.
 		if(qtIsBlueScreened)
