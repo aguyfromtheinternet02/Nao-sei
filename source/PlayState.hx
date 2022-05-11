@@ -2109,6 +2109,11 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
+			if(!Main.qtOptimisation && (SONG.song.toLowerCase()=='censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase() == 'expurgation')){
+				dad404.dance();
+				gf404.dance();
+				boyfriend404.playAnim('idle');
+			}
 			dad.dance();
 			gf.dance();
 			boyfriend.dance();
@@ -3549,7 +3554,27 @@ class PlayState extends MusicBeatState
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
+			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
+			{
+				camZooming = false;
+				paused = true;
+				qtCarelessFin = true;
+				FlxG.sound.music.pause();
+				vocals.pause();
+				//Conductor.songPosition = 0;
+				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
+				doof.scrollFactor.set();
+				doof.finishThing = endScreenHazard;
+				camHUD.visible = false;
+				schoolIntro(doof);
+			}
+			else if (isStoryMode)
+			{
+				campaignScore += Math.round(songScore);
 
+				storyPlaylist.remove(storyPlaylist[0]);
+
+				if(!(SONG.song.toLowerCase() == 'terminate')){
 
 			if (storyPlaylist.length <= 0)
 			{
