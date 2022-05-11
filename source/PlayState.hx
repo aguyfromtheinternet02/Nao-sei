@@ -3599,6 +3599,143 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
+	function endSong():Void
+	{
+		canPause = false;
+		FlxG.sound.music.volume = 0;
+		vocals.volume = 0;
+                #if android
+	        androidc.visible = false;
+	        #end
+		if (SONG.validScore)
+		{
+			#if !switch
+			var averageAccuracy:Float = 0;
+
+			for (i in 0 ... hitAccuracy.length) 
+			{
+				averageAccuracy += hitAccuracy[i];
+			}
+			averageAccuracy -= hitAccuracy.length;
+			averageAccuracy = FlxMath.roundDecimal(averageAccuracy / hitAccuracy.length + 1, 2);
+			Highscore.saveScore(SONG.song, songScore, storyDifficulty, averageAccuracy, maxCombo);
+			#end
+		}
+		
+		if(SONG.song.toLowerCase() == "termination"){
+			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
+		}
+
+			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
+			{
+				camZooming = false;
+				paused = true;
+				qtCarelessFin = true;
+				FlxG.sound.music.pause();
+				vocals.pause();
+				//Conductor.songPosition = 0;
+				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
+				doof.scrollFactor.set();
+				doof.finishThing = endScreenHazard;
+				camHUD.visible = false;
+				schoolIntro(doof);
+			}
+			else if (isStoryMode)
+			{
+			campaignScore += songScore;
+
+			storyPlaylist.remove(storyPlaylist[0]);
+
+				if(!(SONG.song.toLowerCase() == 'terminate')){
+
+
+			if (storyPlaylist.length <= 0)
+			{
+				FlxG.sound.playMusic(Paths.music('qtMenu'));
+
+				transIn = FlxTransitionableState.defaultTransIn;
+				transOut = FlxTransitionableState.defaultTransOut;
+
+				FlxG.switchState(new StoryMenuState());
+
+				// if ()
+				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
+
+				if (SONG.validScore)
+				{
+					//NGio.unlockMedal(60961);
+					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
+				}
+				
+			if(storyDifficulty == 2) //You can only unlock Termination after beating story week on hard.
+				FlxG.save.data.terminationUnlocked = true; //Congratulations, you unlocked hell! Have fun! ~♥
+
+				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
+				FlxG.save.flush();
+			}
+			else
+			{
+				
+
+
+
+
+				var difficulty:String = "";
+
+				if (storyDifficulty == 0)
+					difficulty = '-easy';
+
+				if (storyDifficulty == 2)
+					difficulty = '-hard';
+
+				trace('LOADING NEXT SONG');
+				trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
+
+				if (SONG.song.toLowerCase() == 'eggnog')
+				{
+					var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+						-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+					blackShit.scrollFactor.set();
+					add(blackShit);
+					camHUD.visible = false;
+
+					FlxG.sound.play(Paths.sound('Lights_Shut_off'));
+				}
+
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				prevCamFollow = camFollow;
+
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
+				FlxG.sound.music.stop();
+
+				LoadingState.loadAndSwitchState(new PlayState());
+							}
+						}
+						else if (SONG.song.toLowerCase() == 'careless')
+						{
+							camZooming = false;
+							paused = true;
+							qtCarelessFin = true;
+							FlxG.sound.music.pause();
+							vocals.pause();
+							//Conductor.songPosition = 0;
+							var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('careless/carelessDialogue2')));
+							doof.scrollFactor.set();
+							doof.finishThing = loadSongHazard;
+							camHUD.visible = false;
+							schoolIntro(doof);
+
+				
+			}
+		
+		else
+		{
+			trace('WENT BACK TO FREEPLAY??');
+			FlxG.switchState(new FreeplayState());
+		}
+	}
+	
 	//Call this function to update the visuals for Censory overload!
 	function CensoryOverload404():Void
 	{
@@ -3963,143 +4100,6 @@ class PlayState extends MusicBeatState
 			transOut = FlxTransitionableState.defaultTransOut;
 
 			FlxG.switchState(new StoryMenuState());
-	
-	function endSong():Void
-	{
-		canPause = false;
-		FlxG.sound.music.volume = 0;
-		vocals.volume = 0;
-                #if android
-	        androidc.visible = false;
-	        #end
-		if (SONG.validScore)
-		{
-			#if !switch
-			var averageAccuracy:Float = 0;
-
-			for (i in 0 ... hitAccuracy.length) 
-			{
-				averageAccuracy += hitAccuracy[i];
-			}
-			averageAccuracy -= hitAccuracy.length;
-			averageAccuracy = FlxMath.roundDecimal(averageAccuracy / hitAccuracy.length + 1, 2);
-			Highscore.saveScore(SONG.song, songScore, storyDifficulty, averageAccuracy, maxCombo);
-			#end
-		}
-		
-		if(SONG.song.toLowerCase() == "termination"){
-			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
-		}
-
-			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
-			{
-				camZooming = false;
-				paused = true;
-				qtCarelessFin = true;
-				FlxG.sound.music.pause();
-				vocals.pause();
-				//Conductor.songPosition = 0;
-				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
-				doof.scrollFactor.set();
-				doof.finishThing = endScreenHazard;
-				camHUD.visible = false;
-				schoolIntro(doof);
-			}
-			else if (isStoryMode)
-			{
-			campaignScore += songScore;
-
-			storyPlaylist.remove(storyPlaylist[0]);
-
-				if(!(SONG.song.toLowerCase() == 'terminate')){
-
-
-			if (storyPlaylist.length <= 0)
-			{
-				FlxG.sound.playMusic(Paths.music('qtMenu'));
-
-				transIn = FlxTransitionableState.defaultTransIn;
-				transOut = FlxTransitionableState.defaultTransOut;
-
-				FlxG.switchState(new StoryMenuState());
-
-				// if ()
-				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
-
-				if (SONG.validScore)
-				{
-					//NGio.unlockMedal(60961);
-					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
-				}
-				
-			if(storyDifficulty == 2) //You can only unlock Termination after beating story week on hard.
-				FlxG.save.data.terminationUnlocked = true; //Congratulations, you unlocked hell! Have fun! ~♥
-
-				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
-				FlxG.save.flush();
-			}
-			else
-			{
-				
-
-
-
-
-				var difficulty:String = "";
-
-				if (storyDifficulty == 0)
-					difficulty = '-easy';
-
-				if (storyDifficulty == 2)
-					difficulty = '-hard';
-
-				trace('LOADING NEXT SONG');
-				trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
-
-				if (SONG.song.toLowerCase() == 'eggnog')
-				{
-					var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
-						-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-					blackShit.scrollFactor.set();
-					add(blackShit);
-					camHUD.visible = false;
-
-					FlxG.sound.play(Paths.sound('Lights_Shut_off'));
-				}
-
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
-				prevCamFollow = camFollow;
-
-				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
-				FlxG.sound.music.stop();
-
-				LoadingState.loadAndSwitchState(new PlayState());
-							}
-						}
-						else if (SONG.song.toLowerCase() == 'careless')
-						{
-							camZooming = false;
-							paused = true;
-							qtCarelessFin = true;
-							FlxG.sound.music.pause();
-							vocals.pause();
-							//Conductor.songPosition = 0;
-							var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('careless/carelessDialogue2')));
-							doof.scrollFactor.set();
-							doof.finishThing = loadSongHazard;
-							camHUD.visible = false;
-							schoolIntro(doof);
-
-				
-			}
-		
-		else
-		{
-			trace('WENT BACK TO FREEPLAY??');
-			FlxG.switchState(new FreeplayState());
-		}
-	}
 
 	var endingSong:Bool = false;
 
