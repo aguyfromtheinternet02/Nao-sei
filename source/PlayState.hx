@@ -1999,21 +1999,55 @@ class PlayState extends MusicBeatState
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		var black:FlxSprite = new FlxSprite(-300, -100).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
 		black.scrollFactor.set();
-		add(black);
 
+		FlxG.log.notice(qtCarelessFin);
+		if(!qtCarelessFin)
+		{
+			add(black);
+		}
+		else
+		{
+			FlxTween.tween(FlxG.camera, {x: 0, y:0}, 1.5, {
+				ease: FlxEase.quadInOut
+			});
+		}
+
+		trace(cutsceneSkip);
 		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
 		red.scrollFactor.set();
 
 		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
-		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
-		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
-		senpaiEvil.scrollFactor.set();
-		senpaiEvil.updateHitbox();
-		senpaiEvil.screenCenter();
+		var horrorStage:FlxSprite = new FlxSprite();
+		if(!cutsceneSkip){
+			if(SONG.song.toLowerCase() == 'censory-overload'){
+				camHUD.visible = false;
+				//BG
+				horrorStage.frames = Paths.getSparrowAtlas('stage/horrorbg');
+				horrorStage.animation.addByPrefix('idle', 'Symbol 10 instance ', 24, false);
+				horrorStage.antialiasing = true;
+				horrorStage.scrollFactor.set();
+				horrorStage.screenCenter();
 
+				//QT sprite
+				senpaiEvil.frames = Paths.getSparrowAtlas('cutscenev3');
+				senpaiEvil.animation.addByPrefix('idle', 'final_edited', 24, false);
+				senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 0.875));
+				senpaiEvil.scrollFactor.set();
+				senpaiEvil.updateHitbox();
+				senpaiEvil.screenCenter();
+				senpaiEvil.x -= 140;
+				senpaiEvil.y -= 55;
+			}else{
+				senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
+				senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
+				senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
+				senpaiEvil.scrollFactor.set();
+				senpaiEvil.updateHitbox();
+				senpaiEvil.screenCenter();
+			}
+		}
 		if (SONG.song.toLowerCase() == 'roses' || SONG.song.toLowerCase() == 'thorns')
 		{
 			remove(black);
@@ -2022,6 +2056,10 @@ class PlayState extends MusicBeatState
 			{
 				add(red);
 			}
+		}
+		else if (SONG.song.toLowerCase() == 'censory-overload' && !cutsceneSkip)
+		{
+			add(horrorStage);
 		}
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer)
@@ -2038,7 +2076,46 @@ class PlayState extends MusicBeatState
 				{
 					inCutscene = true;
 
-					if (SONG.song.toLowerCase() == 'thorns')
+					if (SONG.song.toLowerCase() == 'censory-overload' && !cutsceneSkip)
+					{
+						//Background old
+						//var horrorStage:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stage/horrorbg'));
+						//horrorStage.antialiasing = true;
+						//horrorStage.scrollFactor.set();
+						//horrorStage.y-=125;
+						//add(horrorStage);
+						add(senpaiEvil);
+						senpaiEvil.alpha = 0;
+						new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
+						{
+							senpaiEvil.alpha += 0.15;
+							if (senpaiEvil.alpha < 1)
+							{
+								swagTimer.reset();
+							}
+							else
+							{
+								senpaiEvil.animation.play('idle');
+								horrorStage.animation.play('idle');
+								FlxG.sound.play(Paths.sound('music-box-horror'), 0.9, false, null, true, function()
+								{
+									remove(senpaiEvil);
+									remove(red);
+									remove(horrorStage);
+									camHUD.visible = true;
+									FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
+									{
+										add(dialogueBox);
+									}, true);
+								});
+								new FlxTimer().start(13, function(deadTime:FlxTimer)
+								{
+									FlxG.camera.fade(FlxColor.WHITE, 3, false);
+								});
+							}
+						});
+					}
+					else if (SONG.song.toLowerCase() == 'thorns'  && !cutsceneSkip)
 					{
 						add(senpaiEvil);
 						senpaiEvil.alpha = 0;
@@ -2074,7 +2151,14 @@ class PlayState extends MusicBeatState
 					}
 				}
 				else
-					startCountdown();
+					if(!qtCarelessFin)
+					{
+						startCountdown();
+					}
+					else
+					{
+						loadSongHazard();
+					}
 
 				remove(black);
 			}
@@ -2109,11 +2193,6 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
-			if(!Main.qtOptimisation && (SONG.song.toLowerCase()=='censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase() == 'expurgation')){
-				dad404.dance();
-				gf404.dance();
-				boyfriend404.playAnim('idle');
-			}
 			dad.dance();
 			gf.dance();
 			boyfriend.dance();
@@ -3626,27 +3705,12 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
 		}
 
-			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
-			{
-				camZooming = false;
-				paused = true;
-				qtCarelessFin = true;
-				FlxG.sound.music.pause();
-				vocals.pause();
-				//Conductor.songPosition = 0;
-				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
-				doof.scrollFactor.set();
-				doof.finishThing = endScreenHazard;
-				camHUD.visible = false;
-				schoolIntro(doof);
-			}
-			else if (isStoryMode)
-			{
+		if (isStoryMode)
+		{
 			campaignScore += songScore;
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
-				if(!(SONG.song.toLowerCase() == 'terminate')){
 
 
 			if (storyPlaylist.length <= 0)
@@ -3666,9 +3730,6 @@ class PlayState extends MusicBeatState
 					//NGio.unlockMedal(60961);
 					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 				}
-				
-			if(storyDifficulty == 2) //You can only unlock Termination after beating story week on hard.
-				FlxG.save.data.terminationUnlocked = true; //Congratulations, you unlocked hell! Have fun! ~♥
 
 				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 				FlxG.save.flush();
@@ -3710,8 +3771,8 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 
 				LoadingState.loadAndSwitchState(new PlayState());
-							}
-						}
+				}
+				}
 						else if (SONG.song.toLowerCase() == 'careless')
 						{
 							camZooming = false;
@@ -3735,9 +3796,9 @@ class PlayState extends MusicBeatState
 			FlxG.switchState(new FreeplayState());
 		}
 	}
-	
+
 	var endingSong:Bool = false;
-	
+
 	//Call this function to update the visuals for Censory overload!
 	function CensoryOverload404():Void
 	{
@@ -4105,7 +4166,6 @@ class PlayState extends MusicBeatState
 
   }
   }
-	}
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
