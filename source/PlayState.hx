@@ -3736,6 +3736,8 @@ class PlayState extends MusicBeatState
 		}
 	}
 	
+	var endingSong:Bool = false;
+	
 	//Call this function to update the visuals for Censory overload!
 	function CensoryOverload404():Void
 	{
@@ -4100,8 +4102,6 @@ class PlayState extends MusicBeatState
 			transOut = FlxTransitionableState.defaultTransOut;
 
 			FlxG.switchState(new StoryMenuState());
-
-	var endingSong:Bool = false;
 
   }
   }
