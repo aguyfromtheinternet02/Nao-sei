@@ -2193,6 +2193,11 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
+			if(!Main.qtOptimisation && (SONG.song.toLowerCase()=='censory-overload' || SONG.song.toLowerCase() == 'termination' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase() == 'expurgation')){
+				dad404.dance();
+				gf404.dance();
+				boyfriend404.playAnim('idle');
+			}
 			dad.dance();
 			gf.dance();
 			boyfriend.dance();
