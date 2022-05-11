@@ -3195,6 +3195,84 @@ class PlayState extends MusicBeatState
 
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
+		
+		//Mid-Song events for Censory-Overload
+		if (curSong.toLowerCase() == 'censory-overload'){
+				switch (curBeat)
+				{
+					case 2:
+						if(!Main.qtOptimisation){
+							boyfriend404.alpha = 0; 
+							dad404.alpha = 0;
+							gf404.alpha = 0;
+						}
+					/*case 4:
+						//Experimental stuff
+						FlxG.log.notice('Anything different?');
+						qtIsBlueScreened = true;
+						CensoryOverload404();*/
+					case 64:
+						qt_tv01.animation.play("eye");
+					case 80: //First drop
+						gfSpeed = 1;
+						qt_tv01.animation.play("idle");
+					case 208: //First drop end
+						gfSpeed = 2;
+					case 240: //2nd drop hype!!!
+						qt_tv01.animation.play("drop");
+					case 304: //2nd drop
+						gfSpeed = 1;
+					case 432:  //2nd drop end
+						qt_tv01.animation.play("idle");
+						gfSpeed = 2;
+					case 558: //rawr xd
+						FlxG.camera.shake(0.00425,0.6725);
+						qt_tv01.animation.play("eye");
+					case 560: //3rd drop
+						gfSpeed = 1;
+						qt_tv01.animation.play("idle");
+					case 688: //3rd drop end
+						gfSpeed = 2;
+					case 702:
+						//Change to glitch background
+						if(!Main.qtOptimisation){
+							streetBGerror.visible = true;
+							streetBG.visible = false;
+						}
+						qt_tv01.animation.play("error");
+						FlxG.camera.shake(0.0075,0.67);
+					case 704: //404 section
+						gfSpeed = 1;
+						//Change to bluescreen background
+						qt_tv01.animation.play("404");
+						if(!Main.qtOptimisation){
+							streetBG.visible = false;
+							streetBGerror.visible = false;
+							streetFrontError.visible = true;
+							qtIsBlueScreened = true;
+							CensoryOverload404();
+						}
+					case 832: //Final drop
+						//Revert back to normal
+						if(!Main.qtOptimisation){
+							streetBG.visible = true;
+							streetFrontError.visible = false;
+							qtIsBlueScreened = false;
+							CensoryOverload404();
+						}
+						gfSpeed = 1;
+					case 960: //After final drop. 
+						qt_tv01.animation.play("idle");
+						//gfSpeed = 2; //Commented out because I like gfSpeed being 1 rather then 2. -Haz
+				}
+		}
+		else if (curSong.toLowerCase() == 'terminate'){ //For finishing the song early or whatever.
+			if(curStep == 128){
+				dad.playAnim('singLEFT', true);
+				if(!qtCarelessFinCalled)
+					terminationEndEarly();
+			}
+		}
 
 		if (curSong == 'Fresh')
 		{
@@ -3548,12 +3626,6 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
 		}
 
-		if (isStoryMode)
-		{
-			campaignScore += songScore;
-
-			storyPlaylist.remove(storyPlaylist[0]);
-
 			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
 			{
 				camZooming = false;
@@ -3570,11 +3642,12 @@ class PlayState extends MusicBeatState
 			}
 			else if (isStoryMode)
 			{
-				campaignScore += Math.round(songScore);
+			campaignScore += songScore;
 
-				storyPlaylist.remove(storyPlaylist[0]);
+			storyPlaylist.remove(storyPlaylist[0]);
 
 				if(!(SONG.song.toLowerCase() == 'terminate')){
+
 
 			if (storyPlaylist.length <= 0)
 			{
