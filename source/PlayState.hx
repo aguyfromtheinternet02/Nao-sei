@@ -1212,7 +1212,7 @@ class PlayState extends MusicBeatState
 				kb_attack_alert.y = 205;
 				kb_attack_alert.alpha = 0.2;
 		          }
-		          case 'milf' | 'satin-panties' | 'high':
+		          case 'satin-panties' | 'high':
 		          {
 		                  curStage = 'limo';
 		                  defaultCamZoom = 0.90;
@@ -1258,6 +1258,75 @@ class PlayState extends MusicBeatState
 
 		                  fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
 		                  // add(limo);
+			}
+			case 'milf':
+			{
+					curStage = 'limo';
+					defaultCamZoom = 0.90;
+
+					var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
+					skyBG.scrollFactor.set(0.1, 0.1);
+					add(skyBG);
+
+					var bgLimo:FlxSprite = new FlxSprite(-200, 480);
+					bgLimo.frames = Paths.getSparrowAtlas('limo/bgLimo');
+					bgLimo.animation.addByPrefix('drive', "background limo pink", 24);
+					bgLimo.animation.play('drive');
+					bgLimo.scrollFactor.set(0.4, 0.4);
+					add(bgLimo);
+
+					grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+					add(grpLimoDancers);
+
+					for (i in 0...5)
+					{
+							var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
+							dancer.scrollFactor.set(0.4, 0.4);
+							grpLimoDancers.add(dancer);
+					}
+
+					var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('limo/limoOverlay'));
+					overlayShit.alpha = 0.5;
+					// add(overlayShit);
+
+					// var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
+
+					// FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
+
+					// overlayShit.shader = shaderBullshit;
+
+					var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
+
+					limo = new FlxSprite(-120, 550);
+					limo.frames = limoTex;
+					limo.animation.addByPrefix('drive', "Limo stage", 24);
+					limo.animation.play('drive');
+					limo.antialiasing = true;
+
+					fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
+					// add(limo);
+					//Alert!
+					kb_attack_alert = new FlxSprite();
+					kb_attack_alert.frames = Paths.getSparrowAtlas('bonus/attack_alert_NEW_with_EXTRAS');
+					kb_attack_alert.animation.addByPrefix('alert', 'kb_attack_animation_alert-single', 24, false);	
+					kb_attack_alert.animation.addByPrefix('alertDOUBLE', 'kb_attack_animation_alert-double', 24, false);	
+					kb_attack_alert.antialiasing = true;
+					kb_attack_alert.setGraphicSize(Std.int(kb_attack_alert.width * 1.5));
+					kb_attack_alert.cameras = [camHUD];
+					kb_attack_alert.x = FlxG.width - 700;
+					kb_attack_alert.y = 205;
+					//kb_attack_alert.animation.play("alert"); //Placeholder, change this to start already hidden or whatever.
+
+					//Saw that one coming!
+					kb_attack_saw = new FlxSprite();
+					kb_attack_saw.frames = Paths.getSparrowAtlas('bonus/attackv6');
+					kb_attack_saw.animation.addByPrefix('fire', 'kb_attack_animation_fire', 24, false);	
+					kb_attack_saw.animation.addByPrefix('prepare', 'kb_attack_animation_prepare', 24, false);	
+					kb_attack_saw.setGraphicSize(Std.int(kb_attack_saw.width * 1.15));
+					kb_attack_saw.antialiasing = true;
+					kb_attack_saw.setPosition(-860,615);
+					kb_attack_saw.x += 200;
+					kb_attack_saw.y -= 270;
 		          }
 		          case 'cocoa' | 'eggnog':
 		          {
@@ -3862,7 +3931,7 @@ class PlayState extends MusicBeatState
 	//True state = Attack!
 	function KBATTACK(state:Bool = false, soundToPlay:String = 'attack'):Void
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation')){
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation' || SONG.song.toLowerCase() == "milf")){
 			trace("Sawblade Attack Error, cannot use Termination functions outside Termination, Extermination, Expurgation or Tutorial.");
 		}
 		trace("HE ATACC!");
@@ -3913,7 +3982,7 @@ class PlayState extends MusicBeatState
 		}
 	function KBATTACK_ALERT(pointless:Bool = false):Void //For some reason, modchart doesn't like functions with no parameter? why? dunno.
 	{
-		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation')){
+		if(!(SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase() == "extermination" || SONG.song.toLowerCase() == "tutorial" || SONG.song.toLowerCase() == 'expurgation' || SONG.song.toLowerCase() == "milf")){
 			trace("Sawblade Alert Error, cannot use Termination functions outside Termination, Extermination, Expurgation or Tutorial.");
 		}
 		trace("DANGER!");
@@ -4410,6 +4479,47 @@ class PlayState extends MusicBeatState
 					{
 						bfCanDodge=true;
 						trace('DODGE RECHARGED!');
+					});
+				});
+			}
+		}
+		
+		if(SONG.song.toLowerCase()=='milf'){//Wait... ¿¿¿MILF???
+			//Dodge code, yes it's bad but oh well. -Haz
+			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
+			//Haha Copy-paste LOL (although modified a bit)
+			if(FlxG.keys.justPressed.SPACE)
+				trace('butttonpressed');
+
+			if(FlxG.keys.justPressed.SPACE && !bfDodging && bfCanDodge){
+				trace('DODGE START!');
+				bfDodging = true;
+				bfCanDodge = false;
+
+				if(qtIsBlueScreened)
+					boyfriend404.playAnim('dodge');
+				else
+					boyfriend.playAnim('dodge');
+
+				FlxG.sound.play(Paths.sound('dodge01'));
+
+				//Wait, then set bfDodging back to false. -Haz
+				//V1.2 - Timer lasts a bit longer (by 0.00225)
+				//new FlxTimer().start(0.22625, function(tmr:FlxTimer) 		//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				new FlxTimer().start(bfDodgeTiming, function(tmr:FlxTimer)			//UNCOMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				//new FlxTimer().start(bfDodgeTiming, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+				{
+					bfDodging=false;
+					boyfriend.dance(); //V1.3 = This forces the animation to end when you are no longer safe as the animation keeps misleading people.
+					trace('DODGE END!');
+					//Cooldown timer so you can't keep spamming it.
+					//V1.3 = Incremented this by a little (0.005)
+					//new FlxTimer().start(0.1135, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					new FlxTimer().start(bfDodgeCooldown, function(tmr:FlxTimer) 		//UNCOMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					//new FlxTimer().start(bfDodgeCooldown, function(tmr:FlxTimer) 	//COMMENT THIS IF YOU WANT TO USE DOUBLE SAW VARIATIONS!
+					{
+						bfCanDodge=true;
+						trace('DODGE RECHARGED!');//I've separated the dodge code from Censory-Superload so that the Bf animation lasts as long as it needs to last -DrkFon376
 					});
 				});
 			}
@@ -5620,6 +5730,85 @@ class PlayState extends MusicBeatState
 			}
 			stepOfLast = curStep;
 		}
+		else if (curSong.toLowerCase() == 'milf'){//HOLY SHIT MILF WITH SAWBLADES???
+			switch (curStep)
+			{
+				case 1:
+					dodgeTimingOverride(0.275);
+					dodgeCooldownOverride(0.1135);
+				case 32:
+					add(kb_attack_saw);
+					add(kb_attack_alert);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 36:
+					KBATTACK_ALERT();
+				case 40:
+					KBATTACK(true);
+				case 208 | 288 | 324 | 336 | 428 | 448 | 464 | 584 | 656:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 212 | 292 | 328 | 340 | 432 | 452 | 468 | 588 | 660:
+					KBATTACK_ALERT();
+				case 216 | 296 | 332 | 344 | 436 | 456 | 472 | 592 | 664:
+					KBATTACK(true);
+				case 672:
+					//bfDodging = true; //If you uncomment this, BF won't need to dodge the sawblade.
+					dodgeTimingOverride(0.15);
+					dodgeCooldownOverride(0.09225);
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 674:
+					KBATTACK_ALERT();
+				case 676:
+					KBATTACK(true);
+				case 678 | 688 | 694:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 680 | 690 | 696:
+					KBATTACK_ALERT();
+				case 682 | 692 | 698:
+					KBATTACK(true);
+				//OH SHIT
+				case 704:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 706 | 710 | 714 | 718 | 722 | 726 | 730 | 734:
+					KBATTACK_ALERT();
+				case 708 | 712 | 716 | 720 | 724 | 728 | 732:
+					KBATTACK(true);
+					KBATTACK_ALERT();
+				case 711 | 715 | 719 | 723 | 727 | 731:
+					KBATTACK();
+				//bf drop part
+				case 744:
+					dodgeTimingOverride(0.275);
+					dodgeCooldownOverride(0.1135);
+				case 752 | 764:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 756 | 768:
+					KBATTACK_ALERT();
+				case 760:
+					KBATTACK(true);
+				case 776 | 784 | 792:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 772 | 780 | 788 | 796:
+					KBATTACK(true);
+					KBATTACK_ALERT();
+				//Sawblades after the drop
+				case 800:
+					//bfDodging = false; //If you uncomment this, BF will need to dodge the sawblade again.
+				case 836 | 848 | 920 | 948 | 976 | 996 | 1024 | 1056 | 1070 | 1088 | 1108 | 1120 | 1152 | 1176 | 1216 | 1232 | 1288 | 1312 | 1334 | 1350 | 1366 | 1398 | 1420 | 1432:
+					KBATTACK_ALERT();
+					KBATTACK();
+				case 840 | 852 | 924 | 952 | 980 | 1000 | 1028 | 1060 | 1074 | 1092 | 1112 | 1124 | 1156 | 1180 | 1220 | 1236 | 1292 | 1316 | 1338 | 1354 | 1370 | 1402 | 1424 | 1436:
+					KBATTACK_ALERT();
+				case 844 | 856 | 928 | 956 | 984 | 1004 | 1032 | 1064 | 1078 | 1096 | 1116 | 1128 | 1160 | 1184 | 1224 | 1240 | 1296 | 1320 | 1342 | 1358 | 1374 | 1406 | 1428 | 1440:
+					KBATTACK(true);
+			}
+		}
 		//????
 		else if (curSong.toLowerCase() == 'redacted'){
 			switch (curStep)
@@ -5661,6 +5850,26 @@ class PlayState extends MusicBeatState
 					boyfriend404.alpha = 1;
 					iconP1.animation.play("bf");										
 			}
+		}
+		else if (curSong.toLowerCase() == 'extermination'){
+			if(qtIsBlueScreened)
+				{
+					//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
+					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+					{
+						dad404.dance();
+					}
+				}
+		}
+		else if (curSong.toLowerCase() == 'expurgation'){
+			if(qtIsBlueScreened)
+				{
+					//Termination KB animates every 2 curstep instead of 4 (aka, every half beat, not every beat!)
+					if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && !dad404.animation.curAnim.name.startsWith("sing") && curStep % 2 == 0)
+					{
+						dad404.dance();
+					}
+				}
 		}
 
 		// yes this updates every step.
