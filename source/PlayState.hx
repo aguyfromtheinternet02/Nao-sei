@@ -3785,8 +3785,6 @@ class PlayState extends MusicBeatState
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
-				if(!(SONG.song.toLowerCase() == 'terminate')){
-
 			if (storyPlaylist.length <= 0)
 			{
 				FlxG.sound.playMusic(Paths.music('qtMenu'));
