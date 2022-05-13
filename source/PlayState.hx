@@ -1094,7 +1094,7 @@ class PlayState extends MusicBeatState
 				kb_attack_saw.setPosition(-860,615);
 
 				daSign = new FlxSprite();
-				daSign.frames = Paths.getSparrowAtlas('Sign_Post_Mechanic', 'preload');
+				daSign.frames = Paths.getSparrowAtlas('Sign_Post_Mechanic');
 				daSign.setGraphicSize(Std.int(daSign.width * 0.67));
 				daSign.cameras = [camHUD];
 
@@ -4019,7 +4019,7 @@ class PlayState extends MusicBeatState
 			//All because I can't be bothered to learn arrays and shit.
 			//Would've converted this to a switch case but I'm too scared to change it so deal with it.
 			if(laneID==1){
-				pincer1.loadGraphic(Paths.image('bonus/pincer-open','qt'), false);
+				pincer1.loadGraphic(Paths.image('bonus/pincer-open'), false);
 				if(FlxG.save.data.downscroll){
 					if(!goAway){
 						pincer1.setPosition(strumLineNotes.members[4].x,strumLineNotes.members[4].y+500);
@@ -4039,7 +4039,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else if(laneID==5){ //Targets far left note for Dad (KB). Used for the screenshake thing
-				pincer1.loadGraphic(Paths.image('bonus/pincer-open','qt'), false);
+				pincer1.loadGraphic(Paths.image('bonus/pincer-open'), false);
 				if(FlxG.save.data.downscroll){
 					if(!goAway){
 						pincer1.setPosition(strumLineNotes.members[0].x,strumLineNotes.members[0].y+500);
@@ -4059,7 +4059,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else if(laneID==2){
-				pincer2.loadGraphic(Paths.image('bonus/pincer-open','qt'), false);
+				pincer2.loadGraphic(Paths.image('bonus/pincer-open'), false);
 				if(FlxG.save.data.downscroll){
 					if(!goAway){
 						pincer2.setPosition(strumLineNotes.members[5].x,strumLineNotes.members[5].y+500);
@@ -4079,7 +4079,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else if(laneID==3){
-				pincer3.loadGraphic(Paths.image('bonus/pincer-open','qt'), false);
+				pincer3.loadGraphic(Paths.image('bonus/pincer-open'), false);
 				if(FlxG.save.data.downscroll){
 					if(!goAway){
 						pincer3.setPosition(strumLineNotes.members[6].x,strumLineNotes.members[6].y+500);
@@ -4099,7 +4099,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else if(laneID==4){
-				pincer4.loadGraphic(Paths.image('bonus/pincer-open','qt'), false);
+				pincer4.loadGraphic(Paths.image('bonus/pincer-open'), false);
 				if(FlxG.save.data.downscroll){
 					if(!goAway){
 						pincer4.setPosition(strumLineNotes.members[7].x,strumLineNotes.members[7].y+500);
@@ -4130,13 +4130,13 @@ class PlayState extends MusicBeatState
 			switch(laneID)
 			{
 				case 1 | 5:
-					pincer1.loadGraphic(Paths.image('bonus/pincer-close','qt'), false);
+					pincer1.loadGraphic(Paths.image('bonus/pincer-close'), false);
 				case 2:
-					pincer2.loadGraphic(Paths.image('bonus/pincer-close','qt'), false);
+					pincer2.loadGraphic(Paths.image('bonus/pincer-close'), false);
 				case 3:
-					pincer3.loadGraphic(Paths.image('bonus/pincer-close','qt'), false);
+					pincer3.loadGraphic(Paths.image('bonus/pincer-close'), false);
 				case 4:
-					pincer4.loadGraphic(Paths.image('bonus/pincer-close','qt'), false);
+					pincer4.loadGraphic(Paths.image('bonus/pincer-close'), false);
 				default:
 					trace("Invalid LaneID for pincerGRAB");
 			}
