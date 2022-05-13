@@ -3778,14 +3778,27 @@ class PlayState extends MusicBeatState
 		if(SONG.song.toLowerCase() == "termination"){
 			FlxG.save.data.terminationBeaten = true; //Congratulations, you won!
 		}
-
-		if (isStoryMode)
+			if (SONG.song.toLowerCase() == 'cessation') //if placed at top cuz this should execute regardless of story mode. -Haz
+			{
+				camZooming = false;
+				paused = true;
+				qtCarelessFin = true;
+				FlxG.sound.music.pause();
+				vocals.pause();
+				//Conductor.songPosition = 0;
+				var doof = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('cessation/finalDialogue')));
+				doof.scrollFactor.set();
+				doof.finishThing = endScreenHazard;
+				camHUD.visible = false;
+				schoolIntro(doof);
+		}
+		else if (isStoryMode)
 		{
 			campaignScore += songScore;
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
-
+				if(!(SONG.song.toLowerCase() == 'terminate')){
 
 			if (storyPlaylist.length <= 0)
 			{
