@@ -4623,7 +4623,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				badNoteCheck();
+				//badNoteCheck();
 				clicks.push(time);
 			}
 		}
