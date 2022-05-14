@@ -4801,7 +4801,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function badNoteCheck()
+	/*function badNoteCheck()
 	{
 		// just double pasting this shit cuz fuk u
 		// REDO THIS SYSTEM!
@@ -4821,7 +4821,7 @@ class PlayState extends MusicBeatState
 		if (rightP)
 			noteMiss(3);
 		hitAccuracy.push(totalAccuracy);
-	}
+	}*/
 
 	function goodNoteHit(note:Note):Void
 	{
