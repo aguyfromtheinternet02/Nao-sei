@@ -3896,7 +3896,6 @@ class PlayState extends MusicBeatState
 					}
 				}
 			}
-			}
 			else
 			{
 			trace('WENT BACK TO FREEPLAY??');
@@ -4264,50 +4263,12 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.log.notice("Back to the menu you go!!!");
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('qtMenu'));
 
 			transIn = FlxTransitionableState.defaultTransIn;
 			transOut = FlxTransitionableState.defaultTransOut;
 
 			FlxG.switchState(new StoryMenuState());
-
-
-			StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
-
-			if (SONG.validScore)
-			{
-				//NGio.unlockMedal(60961);
-				Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
-			}
-
-			if(storyDifficulty == 2) //You can only unlock Termination after beating story week on hard.
-				FlxG.save.data.terminationUnlocked = true; //Congratulations, you unlocked hell! Have fun! ~♥
-
-
-			FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;	
-			FlxG.save.flush();
-		}
-		else
-		{
-		var difficulty:String = "";
-		if (storyDifficulty == 0)
-			difficulty = '-easy';
-
-		if (storyDifficulty == 2)
-			difficulty = '-hard';	
-		
-		trace('LOADING NEXT SONG');
-		trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
-		FlxG.log.notice(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
-		FlxTransitionableState.skipNextTransIn = true;
-		FlxTransitionableState.skipNextTransOut = true;
-		prevCamFollow = camFollow;
-
-		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
-		
-		LoadingState.loadAndSwitchState(new PlayState());
-		}
-	}
 
   }
   }
