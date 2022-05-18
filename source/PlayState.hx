@@ -4246,7 +4246,7 @@ class PlayState extends MusicBeatState
 			FlxG.switchState(new MainMenuState());
 			Conductor.changeBPM(102); //lmao, this code doesn't even do anything useful! (aaaaaaaaaaaaaaaaaaaaaa)
 		}	
-		else if (SONG.song.toLowerCase() == 'terminate')
+		/*else if (SONG.song.toLowerCase() == 'terminate')
 		{
 			FlxG.log.notice("Back to the menu you go!!!");
 
@@ -4255,10 +4255,8 @@ class PlayState extends MusicBeatState
 			transIn = FlxTransitionableState.defaultTransIn;
 			transOut = FlxTransitionableState.defaultTransOut;
 
-			FlxG.switchState(new StoryMenuState());
+			FlxG.switchState(new StoryMenuState());*/
 
-  }
-  }
   }
   }
 	private function popUpScore(strumtime:Float, note:Note):Void
@@ -5015,7 +5013,7 @@ class PlayState extends MusicBeatState
 		{
 			resyncVocals();
 		}
-
+			  
 		/*if (dad.curCharacter == 'spooky' && curStep % 4 == 2)
 		{
 			// dad.dance();
