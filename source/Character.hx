@@ -881,6 +881,16 @@ class Character extends FlxSprite
 						else
 							playAnim('danceLeft');
 					}
+				case 'gf_404':
+					if (!animation.curAnim.name.startsWith('hair'))
+					{
+						danced = !danced;
+
+						if (danced)
+							playAnim('danceRight');
+						else
+							playAnim('danceLeft');
+					}
 				case 'gf-pixel':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
@@ -899,6 +909,29 @@ class Character extends FlxSprite
 						playAnim('danceRight');
 					else
 						playAnim('danceLeft');
+
+				case 'robot' | 'robot_404' | 'robot_classic' | 'robot_classic_404':
+					danced = !danced;
+
+					if (danced)
+						playAnim('danceRight');
+					else
+						playAnim('danceLeft');
+
+				case 'qt-kb':
+					danced = !danced;
+
+					if(useAltAnimation){
+						if (danced)
+							playAnim('danceRight-kb');
+						else
+							playAnim('danceLeft-kb');
+					}else{
+						if (danced)
+							playAnim('danceRight');
+						else
+							playAnim('danceLeft');
+					}
 				default:
 					playAnim('idle');
 			}
