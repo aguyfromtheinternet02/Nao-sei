@@ -209,7 +209,7 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
 
-				playAnim('danceLeft');
+				playAnim('danceRight');
 
 			//Bluescreen section characters:
 			case 'gf_404':
@@ -302,7 +302,7 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 184, -182);
 				addOffset("singUP", 173, 52);
 
-				playAnim('danceLeft');
+				playAnim('danceRight');
 
 			case 'robot_404-TERMINATION':
 				tex = Paths.getSparrowAtlas('characters/kb/robot_404-angry');
@@ -843,7 +843,7 @@ class Character extends FlxSprite
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance()
+	public function dance(useAltAnimation:Bool=false)
 	{
 		if (!debugMode)
 		{
