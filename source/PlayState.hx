@@ -1997,6 +1997,10 @@ class PlayState extends MusicBeatState
                 #if android
 	        addAndroidControls();
                 #end
+                
+                if (SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase()=='tutorial' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase()=='milf' || SONG.song.toLowerCase()=='expurgation') {
+		    addVirtualPad(NONE, A);
+		}
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -4445,10 +4449,10 @@ class PlayState extends MusicBeatState
 			//Dodge code, yes it's bad but oh well. -Haz
 			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
 
-			if(FlxG.keys.justPressed.SPACE)
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end)
 				trace('butttonpressed');
 
-			if(FlxG.keys.justPressed.SPACE && !bfDodging && bfCanDodge){
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end && !bfDodging && bfCanDodge){
 				trace('DODGE START!');
 				bfDodging = true;
 				bfCanDodge = false;
@@ -4486,10 +4490,10 @@ class PlayState extends MusicBeatState
 			//Dodge code, yes it's bad but oh well. -Haz
 			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
 			//Haha Copy-paste LOL (although modified a bit)
-			if(FlxG.keys.justPressed.SPACE)
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end)
 				trace('butttonpressed');
 
-			if(FlxG.keys.justPressed.SPACE && !bfDodging && bfCanDodge){
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end && !bfDodging && bfCanDodge){
 				trace('DODGE START!');
 				bfDodging = true;
 				bfCanDodge = false;
@@ -4527,10 +4531,10 @@ class PlayState extends MusicBeatState
 			//Dodge code, yes it's bad but oh well. -Haz
 			//var dodgeButton = controls.ACCEPT; //I have no idea how to add custom controls so fuck it. -Haz
 			//Haha Copy-paste LOL (although modified a bit) -Again lol
-			if(FlxG.keys.justPressed.SPACE)
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end)
 				trace('butttonpressed');
 
-			if(FlxG.keys.justPressed.SPACE && !bfDodging && bfCanDodge){
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end && !bfDodging && bfCanDodge){
 				trace('DODGE START!');
 				bfDodging = true;
 				bfCanDodge = false;
@@ -5733,7 +5737,7 @@ class PlayState extends MusicBeatState
 			{
 				case 1:
 					dodgeTimingOverride(0.275);
-					dodgeCooldownOverride(0.1135);
+					dodgeCooldownOverride(0);
 				case 32:
 					add(kb_attack_saw);
 					add(kb_attack_alert);
