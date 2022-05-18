@@ -3879,25 +3879,12 @@ class PlayState extends MusicBeatState
 							doof.finishThing = loadSongHazard;
 							camHUD.visible = false;
 							schoolIntro(doof);
-						}else
-						{
-							trace('LOADING NEXT SONG');
-							trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
-							FlxTransitionableState.skipNextTransIn = true;
-							FlxTransitionableState.skipNextTransOut = true;
-							prevCamFollow = camFollow;
-		
-							PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
-							FlxG.sound.music.stop();
-							
-		
-							LoadingState.loadAndSwitchState(new PlayState());
-						}					
-					}
-				}
+
+				
 			}
-			else
-			{
+		
+		else
+		{
 			trace('WENT BACK TO FREEPLAY??');
 			FlxG.switchState(new FreeplayState());
 		}
