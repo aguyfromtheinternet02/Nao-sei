@@ -2000,6 +2000,7 @@ class PlayState extends MusicBeatState
                 
                 if (SONG.song.toLowerCase() == "termination" || SONG.song.toLowerCase()=='tutorial' || SONG.song.toLowerCase() == 'extermination' || SONG.song.toLowerCase()=='milf' || SONG.song.toLowerCase()=='expurgation') {
 		    addVirtualPad(NONE, A);
+		    addPadCamera();
 		}
 
 		// if (SONG.song == 'South')
